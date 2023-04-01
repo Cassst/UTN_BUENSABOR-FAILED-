@@ -1,13 +1,20 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const { createUser, loginUser } = require('../../../controller/userController')
+const {
+  createUser,
+  loginUser,
+  getAllUsers,
+  getUser,
+  updateUser,
+  deleteUser,
+} = require("../../../controller/userController");
 
 router
-    .post("/register", createUser)
-    .post("/login", loginUser)
-    //.get("/", getAllUsers)
-    //.get("/:userId", getOneUser)
-    //.put("/:userId", updateOneUser) //Habría que poner un validador de datos
-    //.delete("/:userId", deleteOneUser);
+  .post("/auth/register", createUser)
+  .post("/auth/login", loginUser)
+  .get("/", getAllUsers)
+  .get("/:userId", getUser)
+  .put("/:userId", updateUser) //Habría que poner un validador de datos
+  .delete("/:userId", deleteUser);
 
 module.exports = router;
