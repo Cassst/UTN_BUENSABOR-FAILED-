@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const { createUser } = require('../../../controller/userController')
+const { createUser, loginUser } = require('../../../controller/userController')
 
 router
-    .post("/", createUser)
+    .post("/register", createUser)
+    .post("/login", loginUser)
     //.get("/", getAllUsers)
     //.get("/:userId", getOneUser)
     //.put("/:userId", updateOneUser) //Habría que poner un validador de datos

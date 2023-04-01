@@ -59,12 +59,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    rol: [
-      {
-        type: ["user", "admin", "cajero", "delivery", "cocinero"],
+    rol: {
+        type: String,
+        required: true,
+        lowercase: true,
         default: "user",
       },
-    ],
   },
   {
     timestamps: true,
