@@ -1,0 +1,23 @@
+{
+  "name": "buen_sabor_utn_backend",
+  "version": "1.0.0",
+  "description": "Backend ecommerce",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Cassst/FinalProyect.git"
+  },
+  "keywords": [
+    "ecommerce",
+    "utn"
+  ],
+  "author": "Augusto Castro",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Cassst/FinalProyect/issues"
+  },
+  "homepage": "https://github.com/Cassst/FinalProyect#readme"
+}
