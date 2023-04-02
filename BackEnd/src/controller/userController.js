@@ -1,5 +1,8 @@
 const User = require("../models/noSQL/userModel");
 const { generateToken } = require("../config/JWTToken");
+const validateMongoDBID = require("../utils/validateMongoDB");
+
+
 
 const createUser = async (req, res) => {
   try {
@@ -7,7 +10,7 @@ const createUser = async (req, res) => {
     const findUser = await User.findOne({ email });
 
     if (!findUser) {
-      const newUser = User.create(req.body);
+      const newUser = await User.create(req.body);
       return res
         .status(201)
         .send({ status: "Success", success: true, message: "Registered User" });
@@ -19,6 +22,14 @@ const createUser = async (req, res) => {
       });
     }
   } catch (error) {
+    if (error.code === 11000) {
+      return res.status(400).json({
+        status: "Fail",
+        success: false,
+        message: "Duplicate Data",
+        error: error.message,
+      });
+    }
     return res.status(500).send({
       status: "Fail",
       success: false,
@@ -65,14 +76,12 @@ const getAllUsers = async (req, res) => {
         users;
       return { id, fullName, bornDate, gender, phone, email, rol, address };
     });
-    res
-      .status(200)
-      .send({
-        status: "Success",
-        success: true,
-        message: "All Users",
-        users: formatedUser,
-      });
+    res.status(200).send({
+      status: "Success",
+      success: true,
+      message: "All Users",
+      users: formatedUser,
+    });
   } catch (error) {
     return res.status(500).send({
       status: "Fail",
@@ -86,6 +95,7 @@ const getAllUsers = async (req, res) => {
 const getUser = async (req, res) => {
   try {
     let user = await User.findById(req.params.userId);
+    validateMongoDBID(req.params.userId);
     const { id, fullName, bornDate, gender, phone, email, rol, address } = user;
 
     return res.status(200).send({
@@ -105,24 +115,31 @@ const getUser = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
+  const { _id } = req.user;
+  validateMongoDBID(_id);
   try {
     const { fullName, email, password, bornDate, gender, phone, address } =
       req.body;
-    let userUpdated = await User.findOneAndUpdate(req.params.userId, {
-      fullName,
-      email,
-      password,
-      bornDate,
-      gender,
-      phone,
-      address,
-    });
+    let userUpdated = await User.findOneAndUpdate(
+      _id,
+      {
+        fullName,
+        email,
+        password,
+        bornDate,
+        gender,
+        phone,
+        address,
+      },
+      {
+        new: true,
+      }
+    );
 
     return res.status(200).send({
       status: "Success",
       success: true,
       message: "User Updated",
-      user: userUpdated,
     });
   } catch (error) {
     return res.status(500).send({
@@ -137,11 +154,66 @@ const updateUser = async (req, res) => {
 const deleteUser = async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.userId);
+    validateMongoDBID(req.params.userId);
     return res.status(200).send({
       status: "Success",
       success: true,
       message: "User Removed",
     });
+  } catch (error) {
+    return res.status(500).send({
+      status: "Fail",
+      success: false,
+      message: "Error Server",
+      error: error.message,
+    });
+  }
+};
+
+const blockUser = async (req, res) => {
+  const  id  = req.params.userId;
+  try {
+      const block = await User.findByIdAndUpdate(
+        id,
+        {
+          isBlocked: true,
+        },
+        {
+          new: true,
+        }
+      );
+      return res.status(200).send({
+        status: "Success",
+        success: true,
+        message: "User Blocked",
+      });
+  } catch (error) {
+    return res.status(500).send({
+      status: "Fail",
+      success: false,
+      message: "Error Server",
+      error: error.message,
+    });
+  }
+};
+
+const unblockUser = async (req, res) => {
+  const  id  = req.params.userId;
+  try {
+      const unblock = await User.findByIdAndUpdate(
+        id,
+        {
+          isBlocked: false,
+        },
+        {
+          new: true,
+        }
+      );
+      return res.status(200).send({
+        status: "Success",
+        success: true,
+        message: "User Unlocked",
+      });
   } catch (error) {
     return res.status(500).send({
       status: "Fail",
@@ -159,4 +231,6 @@ module.exports = {
   getUser,
   updateUser,
   deleteUser,
+  blockUser,
+  unblockUser,
 };
