@@ -25,7 +25,6 @@ const authMiddleware = async (req, res, next) => {
       status: "Fail",
       success: false,
       message: "Error Server",
-      error: error.message,
     });
   }
 };

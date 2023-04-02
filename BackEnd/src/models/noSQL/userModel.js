@@ -29,10 +29,11 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       index: { unique: true },
     },
-    address: [{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Address"
-      /*
+    address: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Address",
+        /*
       Eliminar corchetes
       street: {
         type: String,
@@ -51,7 +52,8 @@ const userSchema = new mongoose.Schema(
         required: true,
       },
       */
-    }],
+      },
+    ],
     email: {
       type: String,
       required: true,
@@ -70,17 +72,20 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       default: "user",
     },
-    cart:{
+    cart: {
       type: Array,
-      default: []
+      default: [],
     },
     wishlist: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Product"
+      ref: "Product",
     },
     isBlocked: {
       type: Boolean,
-      default: false
+      default: false,
+    },
+    refreshToken: {
+      type: String,
     },
   },
   {
