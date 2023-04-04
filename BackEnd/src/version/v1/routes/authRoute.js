@@ -25,6 +25,6 @@ router
   .put("/",authMiddleware, updateUser)
   .put("/block_user/:userId",authMiddleware,isAdmin, blockUser)
   .put("/unblock_user/:userId",authMiddleware,isAdmin, unblockUser)
-  .delete("/:userId", deleteUser);
+  .delete("/:userId",isAdmin, deleteUser);
 
 module.exports = router;

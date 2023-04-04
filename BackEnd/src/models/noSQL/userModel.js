@@ -29,12 +29,7 @@ const userSchema = new mongoose.Schema(
       lowercase: true,
       index: { unique: true },
     },
-    address: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Address",
-        /*
-      Eliminar corchetes
+    address: {
       street: {
         type: String,
         required: true,
@@ -51,9 +46,7 @@ const userSchema = new mongoose.Schema(
         type: String,
         required: true,
       },
-      */
-      },
-    ],
+    },
     email: {
       type: String,
       required: true,
