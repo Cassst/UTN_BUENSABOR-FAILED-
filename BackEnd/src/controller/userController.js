@@ -307,6 +307,28 @@ const logout = async (req, res) => {
   res.sendStatus(204);
 };
 
+const updatePassword = async (req, res) => {
+  const { _id } = req.user;
+  const { password } = req.body;
+  validateMongoDBID(_id);
+  const user = await User.findById(_id);
+  if (password) {
+    user.password = password;
+    const updatedPassword = await user.save();
+    return res.status(200).send({
+      status: "Success",
+      success: true,
+      message: "Password Updated",
+    });
+  }else{
+    return res.status(500).send({
+      status: "Fail",
+      success: false,
+      message: "The password cant be changed",
+    });
+  }
+};
+
 module.exports = {
   createUser,
   loginUser,
@@ -318,4 +340,5 @@ module.exports = {
   unblockUser,
   handleRefreshToken,
   logout,
+  updatePassword,
 };

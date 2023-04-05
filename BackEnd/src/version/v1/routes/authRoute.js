@@ -11,6 +11,7 @@ const {
   deleteUser,
   handleRefreshToken,
   logout,
+  updatePassword
 } = require("../../../controller/userController");
 
 const { authMiddleware, isAdmin } = require("../../../middlewares/authMiddleware");
@@ -23,6 +24,7 @@ router
   .get("/logout", logout)
   .get("/:userId",authMiddleware,isAdmin, getUser)
   .put("/",authMiddleware, updateUser)
+  .put("/updatedPassword",authMiddleware, updatePassword)
   .put("/block_user/:userId",authMiddleware,isAdmin, blockUser)
   .put("/unblock_user/:userId",authMiddleware,isAdmin, unblockUser)
   .delete("/:userId",isAdmin, deleteUser);
