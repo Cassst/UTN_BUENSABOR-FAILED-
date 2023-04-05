@@ -54,12 +54,57 @@ const getProduct = async (req, res) => {
 
 const getAllProducts = async (req, res) => {
   try {
-    const allProducts = await Product.find();
+    const queryObject = { ...req.query };
+    const excludeFields = ["page", "sort", "limit", "fields"];
+
+    excludeFields.forEach((field) => delete queryObject[field]);
+
+    let queryString = JSON.stringify(queryObject);
+    queryString = queryString.replace(
+      /\b(gte|gt|lte|lt)\b/g,
+      (match) => `$${match}`
+    );
+
+    let query = Product.find(JSON.parse(queryString));
+
+    if (req.query.sort) {
+      const sortBy = req.query.sort.split(",").join(" ");
+      query = query.sort(sortBy);
+    } else {
+      query = query.sort("-createdAt");
+    }
+
+    if (req.query.fields) {
+      const fields = req.query.fields.split(",").join(" ");
+      query = query.select(fields);
+    } else {
+      query = query.select("-createdAt");
+    }
+
+    const page = req.query.page;
+    const limit = req.query.limit;
+    const skip = (page - 1) * limit;
+    query = query.skip(skip).limit(limit);
+
+    if (req.query.page) {
+      const productCount = await Product.countDocuments();
+      if (skip >= productCount) {
+        return res.status(404).send({
+          status: "Fail",
+          success: false,
+          message: "This Page does not exist",
+          error: error.message,
+        });
+      }
+    }
+
+    const product = await query;
+
     res.status(200).send({
       status: "Success",
       success: true,
       message: "All Products",
-      allProducts,
+      product,
     });
   } catch (error) {
     return res.status(500).send({
