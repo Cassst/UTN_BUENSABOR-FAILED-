@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
-const mongoose_delete = require("mongoose-delete");
 const bcrypt = require("bcrypt");
+const crypto = require("crypto");
+const mongoose_delete = require("mongoose-delete");
 
 const userSchema = new mongoose.Schema(
   {
@@ -111,13 +112,13 @@ userSchema.methods.comparePassword = async function (candidatePassword) {
 };
 
 userSchema.methods.createPasswordResetToken = async function () {
-  const resetToken = crypto.randomBytes(32).toString("hex");
-  user.passwordResetToken = crypto
+  const resettoken = crypto.randomBytes(32).toString("hex");
+  this.passwordResetToken = crypto
     .createHash("sha256")
-    .update(resetToken)
+    .update(resettoken)
     .digest("hex");
-  this.passwordResetExpires = Date.now() + 30 * 60 *100;
-  return resetToken;
+  this.passwordResetExpires = Date.now() + 30 * 60 * 1000; // 10 minutes
+  return resettoken;
 };
 
 userSchema.plugin(mongoose_delete, { overrideMethods: "all" });

@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const { generateToken } = require("../config/JWTToken");
 const validateMongoDBID = require("../utils/validateMongoDB");
 const { generateRefreshToken } = require("../config/refreshToken");
+const sendEmail = require("./emailController");
 
 const createUser = async (req, res) => {
   try {
@@ -320,13 +321,72 @@ const updatePassword = async (req, res) => {
       success: true,
       message: "Password Updated",
     });
-  }else{
+  } else {
     return res.status(500).send({
       status: "Fail",
       success: false,
       message: "The password cant be changed",
     });
   }
+};
+
+const forgotPasswordToken = async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) throw new Error("User not found with this email");
+  try {
+    const token = await user.createPasswordResetToken();
+    console.log("___________");
+    console.log("token: " + token);
+    await user.save();
+    const resetURL = `Hi, Please follow this link to reset Your Password. This link is valid till 10 minutes from now. <a href='http://localhost:5000/api/user/reset-password/${token}'>Click Here</>`;
+    const data = {
+      to: email,
+      text: "Hey User",
+      subject: "Forgot Password Link",
+      htm: resetURL,
+    };
+    sendEmail(data);
+    res.json(token);
+  } catch (error) {
+    return res.status(500).send({
+      status: "Fail",
+      success: false,
+      message: "The password cant be changed",
+      error,
+    });
+  }
+  /*
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    return res.status(404).send({
+      status: "Fail",
+      success: false,
+      message: "User not found",
+    });
+  }
+
+  try {
+    const token = await user.createPasswordResetToken();
+    await user.save();
+    const resetURL = `Hi, Please follow this link to reset Your Password. This link is valid till 10 minutes from now. <a href='http://localhost:5000/api/user/reset- password/${token}'>Click Here</>`;
+    const data = {
+      to: email,
+      text: "Hey User",
+      subject: "Forgot Password Link",
+      htm: resetURL,
+    };
+    sendEmail(data);
+    console.log(token);
+  } catch (error) {
+    return res.status(500).send({
+      status: "Fail",
+      success: false,
+      message: "The password cant be changed",
+    });
+  }*/
 };
 
 module.exports = {
@@ -341,4 +401,5 @@ module.exports = {
   handleRefreshToken,
   logout,
   updatePassword,
+  forgotPasswordToken,
 };

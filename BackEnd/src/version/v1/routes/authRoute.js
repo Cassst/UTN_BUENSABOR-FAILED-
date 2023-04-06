@@ -11,7 +11,8 @@ const {
   deleteUser,
   handleRefreshToken,
   logout,
-  updatePassword
+  updatePassword,
+  forgotPasswordToken
 } = require("../../../controller/userController");
 
 const { authMiddleware, isAdmin } = require("../../../middlewares/authMiddleware");
@@ -19,6 +20,7 @@ const { authMiddleware, isAdmin } = require("../../../middlewares/authMiddleware
 router
   .post("/auth/register", createUser)
   .post("/auth/login", loginUser)
+  .post("/forgot-password-token", forgotPasswordToken)
   .get("/", getAllUsers)
   .get("/refresh", handleRefreshToken)
   .get("/logout", logout)
