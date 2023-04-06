@@ -1,5 +1,6 @@
 const User = require("../models/noSQL/userModel");
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 const { generateToken } = require("../config/JWTToken");
 const validateMongoDBID = require("../utils/validateMongoDB");
 const { generateRefreshToken } = require("../config/refreshToken");
@@ -336,10 +337,8 @@ const forgotPasswordToken = async (req, res) => {
   if (!user) throw new Error("User not found with this email");
   try {
     const token = await user.createPasswordResetToken();
-    console.log("___________");
-    console.log("token: " + token);
     await user.save();
-    const resetURL = `Hi, Please follow this link to reset Your Password. This link is valid till 10 minutes from now. <a href='http://localhost:5000/api/user/reset-password/${token}'>Click Here</>`;
+    const resetURL = `Hi, Please follow this link to reset Your Password. This link is valid till 10 minutes from now. <a href='http://localhost:5000/api/v1/user/reset-password/${token}'>Click Here</>`;
     const data = {
       to: email,
       text: "Hey User",
@@ -347,7 +346,7 @@ const forgotPasswordToken = async (req, res) => {
       htm: resetURL,
     };
     sendEmail(data);
-    res.json(token);
+    res.json("Token has been sent");
   } catch (error) {
     return res.status(500).send({
       status: "Fail",
@@ -356,37 +355,32 @@ const forgotPasswordToken = async (req, res) => {
       error,
     });
   }
-  /*
-  const { email } = req.body;
-  const user = await User.findOne({ email });
+};
 
-  if (!user) {
-    return res.status(404).send({
-      status: "Fail",
-      success: false,
-      message: "User not found",
-    });
-  }
-
+const resetPassword = async (req, res) => {
   try {
-    const token = await user.createPasswordResetToken();
+    const { password } = req.body;
+    const { token } = req.params;
+    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+    const user = await User.findOne({
+      passwordResetToken: hashedToken,
+      passwordResetExpires: { $gt: Date.now() },
+    });
+    console.log(user);
+    if (!user) res.json(" Token Expired, Please try again later");
+    user.password = password;
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
     await user.save();
-    const resetURL = `Hi, Please follow this link to reset Your Password. This link is valid till 10 minutes from now. <a href='http://localhost:5000/api/user/reset- password/${token}'>Click Here</>`;
-    const data = {
-      to: email,
-      text: "Hey User",
-      subject: "Forgot Password Link",
-      htm: resetURL,
-    };
-    sendEmail(data);
-    console.log(token);
+    res.send({ status: "Success", success: true, message: "Password reset" });
   } catch (error) {
     return res.status(500).send({
       status: "Fail",
       success: false,
-      message: "The password cant be changed",
+      message: "The password cant be changed at reset",
+      error,
     });
-  }*/
+  }
 };
 
 module.exports = {
@@ -402,4 +396,5 @@ module.exports = {
   logout,
   updatePassword,
   forgotPasswordToken,
+  resetPassword,
 };
