@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const dbConnection = require('./src/config/database/dbConnect');
 const v1AuthRoute = require('./src/version/v1/routes/authRoute');
 const v1ProductsRoute = require('./src/version/v1/routes/productRoute');
+const v1BlogRoute = require('./src/version/v1/routes/blogRoute');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -18,6 +19,7 @@ app.use(cookieParser());
 
 app.use("/api/v1/user", v1AuthRoute);
 app.use("/api/v1/product", v1ProductsRoute);
+app.use("/api/v1/blog", v1BlogRoute);
 
 app.listen(PORT,() => {
     dbConnection();
