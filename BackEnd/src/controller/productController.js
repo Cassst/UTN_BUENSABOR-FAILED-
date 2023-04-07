@@ -1,4 +1,5 @@
 const Product = require("../models/noSQL/productModel");
+const User = require("../models/noSQL/userModel");
 const slugify = require("slugify");
 
 const createProduct = async (req, res) => {
@@ -156,10 +157,58 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+const addToWishlist = async (req, res) => {
+  const { _id } = req.user;
+  const { prodId } = req.body;
+  try {
+    const user = await User.findById(_id);
+    const alreadyadded = user.wishlist.find((id) => id.toString() === prodId);
+    if (alreadyadded) {
+      let user = await User.findByIdAndUpdate(
+        _id,
+        {
+          $pull: { wishlist: prodId },
+        },
+        {
+          new: true,
+        }
+      );
+      return res.status(200).send({
+        status: "Success",
+        success: true,
+        message: "The product has been added successfully to your wishlist",
+      });
+    } else {
+      let user = await User.findByIdAndUpdate(
+        _id,
+        {
+          $push: { wishlist: prodId },
+        },
+        {
+          new: true,
+        }
+      );
+      return res.status(200).send({
+        status: "Success",
+        success: true,
+        message: "The product has been removed successfully to your wishlist",
+      });
+    }
+  } catch (error) {
+    return res.status(500).send({
+      status: "Fail",
+      success: false,
+      message: "Fail to add to the wish list",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   createProduct,
   getProduct,
   getAllProducts,
   updateProduct,
   deleteProduct,
+  addToWishlist,
 };
