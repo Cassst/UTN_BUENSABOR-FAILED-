@@ -6,18 +6,21 @@ const {
   getAllProducts,
   updateProduct,
   deleteProduct,
-  addToWishlist
+  addToWishlist,
+  rating,
 } = require("../../../controller/productController");
-const { authMiddleware, isAdmin } = require("../../../middlewares/authMiddleware");
-
+const {
+  authMiddleware,
+  isAdmin,
+} = require("../../../middlewares/authMiddleware");
 
 router
-    .post("/",authMiddleware,isAdmin, createProduct)
-    .get("/:productId", getProduct)
-    .put("/wishlist",authMiddleware, addToWishlist)
-    .get("/",  getAllProducts)
-    .put("/:productId",authMiddleware,isAdmin, updateProduct)
-    
-    .delete("/:productId",authMiddleware,isAdmin, deleteProduct);
+  .post("/", authMiddleware, isAdmin, createProduct)
+  .get("/:productId", getProduct)
+  .put("/wishlist", authMiddleware, addToWishlist)
+  .put("/rating", authMiddleware, rating)
+  .put("/:productId", authMiddleware, isAdmin, updateProduct)
+  .delete("/:productId", authMiddleware, isAdmin, deleteProduct)
+  .get("/", getAllProducts);
 
 module.exports = router;

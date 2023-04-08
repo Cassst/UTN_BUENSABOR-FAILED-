@@ -7,6 +7,12 @@ const productSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+    },
     shortDescription: {
       type: String,
       required: true,
@@ -14,9 +20,13 @@ const productSchema = new mongoose.Schema(
     fullDescription: {
       type: String,
     },
-    pics: {
-      type: Array,
-    },
+    images: [
+      {
+        public_id: String,
+        url: String,
+      },
+    ],
+    tags: String,
     price: {
       type: Number,
       required: true,
@@ -43,22 +53,21 @@ const productSchema = new mongoose.Schema(
         unit: Number,
       },
     ],
-    slug:{
-      type: String,
-    },
     quantity: {
       type: Number,
       require: true,
     },
-    rating: [
+    ratings: [
       {
         star: Number,
-        postedby: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: "User",
-        },
+        comment: String,
+        postedby: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
       },
     ],
+    totalrating: {
+      type: String,
+      default: 0,
+    },
   },
   {
     timestamps: true,
