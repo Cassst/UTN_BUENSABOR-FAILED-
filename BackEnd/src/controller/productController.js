@@ -1,5 +1,6 @@
 const Product = require("../models/noSQL/productModel");
 const User = require("../models/noSQL/userModel");
+const { cloudinaryUploadImg } = require("../utils/cloudinary");
 const slugify = require("slugify");
 
 const createProduct = async (req, res) => {
@@ -269,6 +270,40 @@ const rating = async (req, res) => {
   }
 };
 
+const uploadImages = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const uploader = (path) => cloudinaryUploadImg(path, "images");
+    const urls = [];
+    const files = req.files;
+    for (const file of files) {
+      const { path } = file;
+      const newPath = await uploader(path);
+      urls.push(newPath);
+    }
+    const findProduct = await Product.findByIdAndUpdate(
+      id,
+      {
+        images: urls.map((file) => {
+          return file;
+        }),
+      },
+      {
+        new: true,
+      }
+    );
+    res.json(findProduct);
+  } catch (error) {
+    return res.status(500).send({
+      status: "Fail",
+      success: false,
+      message: "Fail to upload the image",
+      error: error.message,
+    });
+  }
+};
+
+
 module.exports = {
   createProduct,
   getProduct,
@@ -277,4 +312,5 @@ module.exports = {
   deleteProduct,
   addToWishlist,
   rating,
+  uploadImages,
 };
