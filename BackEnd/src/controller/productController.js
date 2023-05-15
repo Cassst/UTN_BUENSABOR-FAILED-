@@ -2,6 +2,7 @@ const Product = require("../models/noSQL/productModel");
 const User = require("../models/noSQL/userModel");
 const { cloudinaryUploadImg } = require("../utils/cloudinary");
 const slugify = require("slugify");
+const fs = require("fs");
 
 const createProduct = async (req, res) => {
   try {
@@ -280,6 +281,7 @@ const uploadImages = async (req, res) => {
       const { path } = file;
       const newPath = await uploader(path);
       urls.push(newPath);
+      fs.unlinkSync(path);
     }
     const findProduct = await Product.findByIdAndUpdate(
       id,

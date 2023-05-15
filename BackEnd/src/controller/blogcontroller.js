@@ -1,6 +1,7 @@
 const Blog = require("../models/noSQL/blogModel");
 const User = require("../models/noSQL/userModel");
-
+const { cloudinaryUploadImg } = require("../utils/cloudinary");
+const fs = require("fs");
 const createBlog = async (req, res) => {
   try {
     const newBlog = await Blog.create(req.body);
@@ -190,6 +191,40 @@ const dislikeBlog = async (req, res) => {
   }
 };
 
+const uploadImages = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const uploader = (path) => cloudinaryUploadImg(path, "images");
+    const urls = [];
+    const files = req.files;
+    for (const file of files) {
+      const { path } = file;
+      const newPath = await uploader(path);
+      urls.push(newPath);
+      fs.unlinkSync(path);
+    }
+    const findBlog = await Blog.findByIdAndUpdate(
+      id,
+      {
+        images: urls.map((file) => {
+          return file;
+        }),
+      },
+      {
+        new: true,
+      }
+    );
+    res.json(findBlog);
+  } catch (error) {
+    return res.status(500).send({
+      status: "Fail",
+      success: false,
+      message: "Fail to upload the image",
+      error: error.message,
+    });
+  }
+};
+
 module.exports = {
   createBlog,
   updateBlog,
@@ -197,5 +232,6 @@ module.exports = {
   deleteBlog,
   getAllBlogs,
   likeBlog,
-  dislikeBlog
+  dislikeBlog,
+  uploadImages
 };

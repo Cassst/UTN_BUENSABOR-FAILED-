@@ -85,6 +85,59 @@ const loginUser = async (req, res) => {
   }
 };
 
+const loginAdmin = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const findAdmin = await User.findOne({ email });
+
+    if(findAdmin.rol !== 'admin'){
+      res.status(400).send({
+        status: "Fail",
+        success: false,
+        message: "Not Authorized",
+        token,
+      })
+    }
+
+    if (findAdmin && (await findAdmin.comparePassword(password))) {
+      const token = generateToken(findAdmin.id);
+
+      const refreshToken = await generateRefreshToken(findAdmin?._id);
+      const updateuser = await User.findByIdAndUpdate(
+        findAdmin.id,
+        {
+          refreshToken: refreshToken,
+        },
+        { new: true }
+      );
+      res.cookie("refreshToken", refreshToken, {
+        httpOnly: true,
+        maxAge: 72 * 60 * 60 * 1000,
+      });
+      res.status(200).send({
+        status: "Success",
+        success: true,
+        message: "Access Granted",
+        token,
+      });
+    } else {
+      return res.status(401).send({
+        status: "Fail",
+        success: false,
+        message: "Wrong Credentials",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).send({
+      status: "Fail",
+      success: false,
+      message: "Error Server",
+      error: error.message,
+    });
+  }
+};
+
 const getAllUsers = async (req, res) => {
   try {
     const users = await User.find();
@@ -397,4 +450,5 @@ module.exports = {
   updatePassword,
   forgotPasswordToken,
   resetPassword,
+  loginAdmin
 };
