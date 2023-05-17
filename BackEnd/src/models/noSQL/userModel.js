@@ -31,6 +31,8 @@ const userSchema = new mongoose.Schema(
       index: { unique: true },
     },
     address: {
+      type: String,
+      /*
       street: {
         type: String,
         required: true,
@@ -46,7 +48,7 @@ const userSchema = new mongoose.Schema(
       zipCode: {
         type: String,
         required: true,
-      },
+      },*/
     },
     email: {
       type: String,

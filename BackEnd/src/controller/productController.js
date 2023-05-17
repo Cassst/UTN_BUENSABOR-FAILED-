@@ -164,9 +164,9 @@ const addToWishlist = async (req, res) => {
   const { prodId } = req.body;
   try {
     const user = await User.findById(_id);
-    const alreadyadded = user.wishlist.find((id) => id.toString() === prodId);
-    if (alreadyadded) {
-      let user = await User.findByIdAndUpdate(
+    const alreadyAdded = user.wishlist.find((id) => id.toString() === prodId);
+    if (alreadyAdded) {
+      let updatedUser = await User.findByIdAndUpdate(
         _id,
         {
           $pull: { wishlist: prodId },
@@ -178,10 +178,10 @@ const addToWishlist = async (req, res) => {
       return res.status(200).send({
         status: "Success",
         success: true,
-        message: "The product has been added successfully to your wishlist",
+        message: "The product has been removed successfully from your wishlist",
       });
     } else {
-      let user = await User.findByIdAndUpdate(
+      let updatedUser = await User.findByIdAndUpdate(
         _id,
         {
           $push: { wishlist: prodId },
@@ -193,14 +193,14 @@ const addToWishlist = async (req, res) => {
       return res.status(200).send({
         status: "Success",
         success: true,
-        message: "The product has been removed successfully to your wishlist",
+        message: "The product has been added successfully to your wishlist",
       });
     }
   } catch (error) {
     return res.status(500).send({
       status: "Fail",
       success: false,
-      message: "Fail to add to the wish list",
+      message: "Fail to add to the wishlist",
       error: error.message,
     });
   }

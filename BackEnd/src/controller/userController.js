@@ -90,13 +90,13 @@ const loginAdmin = async (req, res) => {
     const { email, password } = req.body;
     const findAdmin = await User.findOne({ email });
 
-    if(findAdmin.rol !== 'admin'){
+    if (findAdmin.rol !== "admin") {
       res.status(400).send({
         status: "Fail",
         success: false,
         message: "Not Authorized",
         token,
-      })
+      });
     }
 
     if (findAdmin && (await findAdmin.comparePassword(password))) {
@@ -136,6 +136,31 @@ const loginAdmin = async (req, res) => {
       error: error.message,
     });
   }
+};
+
+const saveAddress = async (req, res) => {
+   const { _id } = req.user;
+   try {
+    const updatedUser = await User.findByIdAndUpdate(_id,
+      {
+        address: req?.body?.address,
+      },
+      {
+        new:true,
+      });
+      return res.status(200).send({
+        status: "Success",
+        success: true,
+        message: "Address Updated",
+      });
+   } catch (error) {
+    return res.status(500).send({
+      status: "Fail",
+      success: false,
+      message: "Error Server",
+      error: error.message,
+    });
+   } 
 };
 
 const getAllUsers = async (req, res) => {
@@ -436,6 +461,21 @@ const resetPassword = async (req, res) => {
   }
 };
 
+const getWishList = async (req, res) => {
+  const { _id } = req.user;
+  try {
+    const findUser = await User.findById(_id).populate('wishlist');
+    res.json(findUser);
+  } catch (error) {
+    return res.status(500).send({
+      status: "Fail",
+      success: false,
+      message: "User could not be found",
+      error,
+    });
+  }
+};
+
 module.exports = {
   createUser,
   loginUser,
@@ -450,5 +490,7 @@ module.exports = {
   updatePassword,
   forgotPasswordToken,
   resetPassword,
-  loginAdmin
+  loginAdmin,
+  getWishList,
+  saveAddress
 };
