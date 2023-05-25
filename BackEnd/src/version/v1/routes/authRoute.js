@@ -16,7 +16,8 @@ const {
   resetPassword,
   loginAdmin,
   getWishList,
-  saveAddress
+  saveAddress,
+  userCart
 } = require("../../../controller/userController");
 
 const { authMiddleware, isAdmin } = require("../../../middlewares/authMiddleware");
@@ -25,6 +26,7 @@ router
   .post("/auth/register", createUser)
   .post("/auth/login", loginUser)
   .post("/auth/loginAdmin", loginAdmin)
+  .post("/cart", authMiddleware, userCart)
   .post("/forgot-password-token", forgotPasswordToken)
   .get("/wishlist", authMiddleware, getWishList)
   .get("/", getAllUsers)

@@ -1,4 +1,6 @@
 const User = require("../models/noSQL/userModel");
+const Product = require("../models/noSQL/productModel");
+const Cart = require("../models/noSQL/cartModel");
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const { generateToken } = require("../config/JWTToken");
@@ -476,6 +478,46 @@ const getWishList = async (req, res) => {
   }
 };
 
+const userCart = async (req, res) => {
+  const { _id } = req.user;
+  const { cart } = req.body;
+  try {
+    let products = [];
+    const user = await User.findById(_id);
+    // check if user already have product in cart
+    const alreadyExistCart = await Cart.findOne({ orderby: user._id });
+    if (alreadyExistCart) {
+      alreadyExistCart.remove();
+    }
+    for (let i = 0; i < cart.length; i++) {
+      let object = {};
+      object.product = cart[i]._id;
+      object.count = cart[i].count;
+      object.color = cart[i].color;
+      let getPrice = await Product.findById(cart[i]._id).select("price").exec();
+      object.price = getPrice.price;
+      products.push(object);
+    }
+    let cartTotal = 0;
+    for (let i = 0; i < products.length; i++) {
+      cartTotal = cartTotal + products[i].price * products[i].count;
+    }
+    let newCart = await new Cart({
+      products,
+      cartTotal,
+      orderby: user?._id,
+    }).save();
+    res.json(newCart);
+  } catch (error) {
+    return res.status(500).send({
+      status: "Fail",
+      success: false,
+      message: error + error.message,
+      error,
+    });
+  }
+}; 
+
 module.exports = {
   createUser,
   loginUser,
@@ -492,5 +534,6 @@ module.exports = {
   resetPassword,
   loginAdmin,
   getWishList,
-  saveAddress
+  saveAddress,
+  userCart
 };
