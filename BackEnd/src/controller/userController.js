@@ -1,6 +1,10 @@
 const User = require("../models/noSQL/userModel");
 const Product = require("../models/noSQL/productModel");
 const Cart = require("../models/noSQL/cartModel");
+const Coupon = require("../models/noSQL/couponModel");
+const Order = require("../models/noSQL/orderModel");
+const uniqid = require("uniqid");
+
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const { generateToken } = require("../config/JWTToken");
@@ -23,6 +27,7 @@ const createUser = async (req, res) => {
         status: "Fail",
         success: false,
         message: "User Already Exists",
+        error: error.message,
       });
     }
   } catch (error) {
@@ -74,6 +79,7 @@ const loginUser = async (req, res) => {
         status: "Fail",
         success: false,
         message: "Wrong Credentials",
+        error: error.message,
       });
     }
   } catch (error) {
@@ -127,6 +133,7 @@ const loginAdmin = async (req, res) => {
         status: "Fail",
         success: false,
         message: "Wrong Credentials",
+        error: error.message,
       });
     }
   } catch (error) {
@@ -328,6 +335,7 @@ const handleRefreshToken = async (req, res) => {
       status: "Fail",
       success: false,
       message: "No refresh token in session",
+      error: error.message,
     });
 
   const refreshToken = cookie.refreshToken;
@@ -339,6 +347,7 @@ const handleRefreshToken = async (req, res) => {
       status: "Fail",
       success: false,
       message: "No Match found",
+      error: error.message,
     });
 
   jwt.verify(refreshToken, process.env.JWT_SECRET_KEY, (err, decoded) => {
@@ -347,6 +356,7 @@ const handleRefreshToken = async (req, res) => {
         status: "Fail",
         success: false,
         message: "There is something wrong with refresh token",
+        error: error.message,
       });
     }
     const accessToken = generateToken(user?._id);
@@ -366,6 +376,7 @@ const logout = async (req, res) => {
       status: "Fail",
       success: false,
       message: "No refresh token in session",
+      error: error.message,
     });
 
   const refreshToken = cookie.refreshToken;
@@ -407,6 +418,7 @@ const updatePassword = async (req, res) => {
       status: "Fail",
       success: false,
       message: "The password cant be changed",
+      error: error.message,
     });
   }
 };
@@ -432,7 +444,7 @@ const forgotPasswordToken = async (req, res) => {
       status: "Fail",
       success: false,
       message: "The password cant be changed",
-      error,
+      error: error.message,
     });
   }
 };
@@ -458,7 +470,7 @@ const resetPassword = async (req, res) => {
       status: "Fail",
       success: false,
       message: "The password cant be changed at reset",
-      error,
+      error: error.message,
     });
   }
 };
@@ -473,7 +485,7 @@ const getWishList = async (req, res) => {
       status: "Fail",
       success: false,
       message: "User could not be found",
-      error,
+      error: error.message,
     });
   }
 };
@@ -512,11 +524,136 @@ const userCart = async (req, res) => {
     return res.status(500).send({
       status: "Fail",
       success: false,
-      message: error + error.message,
-      error,
+      message: error,
     });
   }
 }; 
+
+const getUserCart = async (req, res) => {
+  const { _id } = req.user;
+  try {
+    const cart = await Cart.findOne({ orderby: _id }).populate(
+      "products.product"
+    );
+    res.json(cart);
+  } catch (error) {
+    return res.status(500).send({
+      status: "Fail",
+      success: false,
+      message: error,
+    });
+  }
+};
+
+const emptyCart = async (req, res) => {
+  if (!req.user || !req.user.email) {
+    return res.status(401).send({
+      status: "Fail",
+      success: false,
+      message: "Unauthorized",
+    });
+  }
+
+  const { _id } = req.user;
+
+  try {
+    const user = await User.findOne({ _id });
+    const cart = await Cart.findOneAndRemove({ orderby: user._id });
+    res.json(cart);
+  } catch (error) {
+    return res.status(500).send({
+      status: "Fail",
+      success: false,
+      message: error,
+    });
+  }
+};
+
+const applyCoupon = async (req, res) => {
+  const { coupon } = req.body;
+  const { _id } = req.user;
+  const validCoupon = await Coupon.findOne({ name: coupon });
+  if (validCoupon === null) {
+    return res.status(404).json({
+      status: "Fail",
+      success: false,
+      message: "The coupon provided is not valid",
+    });
+  }
+  const user = await User.findById(_id);
+  const { cartTotal } = await Cart.findOne({ orderby: user._id }).populate("products.product");
+  const totalAfterDiscount = (cartTotal - (cartTotal * validCoupon.discount) / 100).toFixed(2);
+  const updatedCart = await Cart.findOneAndUpdate(
+    { orderby: user._id },
+    { totalAfterDiscount },
+    { new: true }
+  );
+  res.json(totalAfterDiscount);
+};
+
+const createOrder = async (req, res) => {
+  const { COD, couponApplied } = req.body;
+  const { _id } = req.user;
+  try {
+    if (!COD) {
+      return res.status(400).json({
+        status: "Fail",
+        success: false,
+        message: "Missing COD field in the request",
+      });
+    }
+    const user = await User.findById(_id);
+    let userCart = await Cart.findOne({ orderby: user._id });
+    if (!userCart) {
+      return res.status(404).json({
+        status: "Fail",
+        success: false,
+        message: "User cart not found",
+      });
+    }
+
+    let finalAmount = 0;
+    if (couponApplied && userCart.totalAfterDiscount) {
+      finalAmount = userCart.totalAfterDiscount;
+    } else {
+      finalAmount = userCart.cartTotal;
+    }
+
+    let newOrder = await new Order({
+      products: userCart.products,
+      paymentIntent: {
+        id: uniqid(),
+        method: "COD",
+        amount: finalAmount,
+        status: "Cash on Delivery",
+        created: Date.now(),
+        currency: "ARS",
+      },
+      orderby: user._id,
+      orderStatus: "Cash on Delivery",
+    }).save();
+
+    let update = userCart.products.map((item) => {
+      return {
+        updateOne: {
+          filter: { _id: item.product._id },
+          update: { $inc: { quantity: -item.count, sold: +item.count } },
+        },
+      };
+    });
+
+    const updated = await Product.bulkWrite(update, {});
+    res.json({ message: "success" });
+  } catch (error) {
+    return res.status(500).json({
+      status: "Fail",
+      success: false,
+      message: "Failed to create the order",
+      error: error.message,
+    });
+  }
+};
+
 
 module.exports = {
   createUser,
@@ -535,5 +672,9 @@ module.exports = {
   loginAdmin,
   getWishList,
   saveAddress,
-  userCart
+  userCart,
+  getUserCart,
+  emptyCart,
+  applyCoupon,
+  createOrder
 };

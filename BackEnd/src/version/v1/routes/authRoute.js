@@ -17,28 +17,36 @@ const {
   loginAdmin,
   getWishList,
   saveAddress,
-  userCart
+  userCart,
+  getUserCart,
+  emptyCart,
+  applyCoupon,
+  createOrder
 } = require("../../../controller/userController");
 
 const { authMiddleware, isAdmin } = require("../../../middlewares/authMiddleware");
 
 router
-  .post("/auth/register", createUser)
-  .post("/auth/login", loginUser)
-  .post("/auth/loginAdmin", loginAdmin)
-  .post("/cart", authMiddleware, userCart)
+  .post("/auth/register",createUser)
+  .post("/auth/login",loginUser)
+  .post("/auth/loginAdmin",loginAdmin)
+  .post("/cart",authMiddleware , userCart)
   .post("/forgot-password-token", forgotPasswordToken)
-  .get("/wishlist", authMiddleware, getWishList)
-  .get("/", getAllUsers)
-  .get("/refresh", handleRefreshToken)
-  .get("/logout", logout)
-  .get("/:userId",authMiddleware,isAdmin, getUser)
+  .post("/cart/apply_cupon",authMiddleware, applyCoupon)
+  .post("/cart/cash_order",authMiddleware, createOrder)
+  .get("/wishlist",authMiddleware, getWishList)
+  .get("/cart",authMiddleware, getUserCart)
+  .get("/",getAllUsers)
+  .get("/refresh",handleRefreshToken)
+  .get("/logout",logout)
+  .get("/:userId",authMiddleware, isAdmin, getUser)
   .put("/",authMiddleware, updateUser)
   .put("/updatedPassword",authMiddleware, updatePassword)
   .put("/save_address",authMiddleware, saveAddress)
-  .put("/reset-password/:token", resetPassword)
-  .put("/block_user/:userId",authMiddleware,isAdmin, blockUser)
-  .put("/unblock_user/:userId",authMiddleware,isAdmin, unblockUser)
+  .put("/reset-password/:token",resetPassword)
+  .put("/block_user/:userId",authMiddleware, isAdmin, blockUser)
+  .put("/unblock_user/:userId",authMiddleware, isAdmin, unblockUser)
+  .delete("/empty_cart",authMiddleware, emptyCart)
   .delete("/:userId",isAdmin, deleteUser);
 
 module.exports = router;
