@@ -654,6 +654,84 @@ const createOrder = async (req, res) => {
   }
 };
 
+const getOrders = async (req, res) => {
+  const { _id } = req.user;
+  try {
+    const userOrders = await Order.find({ orderby: _id })
+      .populate("products.product")
+      .populate("orderby")
+      .exec();
+    res.json(userOrders);
+  } catch (error) {
+    return res.status(500).json({
+      status: "Fail",
+      success: false,
+      message: "Failed to retrieve the orders",
+      error: error.message,
+    });
+  }
+};
+
+const getAllOrders = async (req, res) => {
+  try {
+    const alluserorders = await Order.find()
+      .populate("products.product")
+      .populate("orderby")
+      .exec();
+    res.json(alluserorders);
+  } catch (error) {
+    return res.status(500).json({
+      status: "Fail",
+      success: false,
+      message: "Failed to retrieve all orders",
+      error: error.message,
+    });
+  }
+};
+
+const getOrderByUserId = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const userorders = await Order.findOne({ orderby: id })
+      .populate("products.product")
+      .populate("orderby")
+      .exec();
+    res.json(userorders);
+  } catch (error) {
+    return res.status(500).json({
+      status: "Fail",
+      success: false,
+      message: "Failed to get orders by the user",
+      error: error.message,
+    });
+  }
+};
+
+const updateOrderStatus = async (req, res) => {
+  const { status } = req.body;
+  const { id } = req.params;
+  try {
+    const updateOrderStatus = await Order.findByIdAndUpdate(
+      id,
+      {
+        orderStatus: status,
+        paymentIntent: {
+          status: status,
+        },
+      },
+      { new: true }
+    );
+    res.json(updateOrderStatus);
+  } catch (error) {
+    return res.status(500).json({
+      status: "Fail",
+      success: false,
+      message: "Failed to update the order",
+      error: error.message,
+    });
+  }
+};
+
 
 module.exports = {
   createUser,
@@ -676,5 +754,9 @@ module.exports = {
   getUserCart,
   emptyCart,
   applyCoupon,
-  createOrder
+  createOrder,
+  getOrders,
+  getAllOrders,
+  updateOrderStatus,
+  getOrderByUserId
 };
