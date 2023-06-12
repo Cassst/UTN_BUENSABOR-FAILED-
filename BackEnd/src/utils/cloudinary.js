@@ -24,4 +24,22 @@ const cloudinaryUploadImg = async (fileToUpload) => {
     );
   });
 };
-module.exports = { cloudinaryUploadImg };
+
+const cloudinaryDeleteImg = async (fileToDelete) => {
+  return new Promise((resolve) => {
+    cloudinary.uploader.destroy(
+      fileToDelete,
+      (result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve({
+            url: result.secure_url,
+            resource_type: "auto",
+          });
+        }
+      }
+    );
+  });
+};
+module.exports = { cloudinaryUploadImg, cloudinaryDeleteImg };

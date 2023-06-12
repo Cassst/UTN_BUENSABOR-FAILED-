@@ -10,6 +10,7 @@ const v1BlogRoute = require("./src/version/v1/routes/blogRoute");
 const v1Category = require("./src/version/v1/routes/categoryRoutes");
 const v1BlogCategory = require("./src/version/v1/routes/blogCategoryRoute");
 const v1Coupons = require("./src/version/v1/routes/couponRoutes");
+const v1enqRouter = require("./src/version/v1/routes/enqRoute");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -25,6 +26,7 @@ app.use("/api/v1/blog", v1BlogRoute);
 app.use("/api/v1/category", v1Category);
 app.use("/api/v1/blogcategory", v1BlogCategory);
 app.use("/api/v1/coupon", v1Coupons);
+app.use("/api/v1/enquiry", v1enqRouter);
 
 app.listen(PORT, () => {
   dbConnection();
