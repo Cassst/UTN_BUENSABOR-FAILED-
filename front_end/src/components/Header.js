@@ -142,6 +142,11 @@ const Header = () => {
                       </li>
                       <li>
                         <Link className="dropdown-item text-white" to="">
+                          Lomos
+                        </Link>
+                      </li>
+                      <li>
+                        <Link className="dropdown-item text-white" to="">
                           Bebidas
                         </Link>
                       </li>
