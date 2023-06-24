@@ -15,13 +15,13 @@
   --color-777777: #777777;
   --color-1c1c1b: #1c1c1b;
 
-  --color-primary: #FF4500; /* Naranja brillante, asociado a la comida y el apetito */
-  --color-primaryDarker: #ff6200eb;
+  --color-primary: #fa661c;
+  --color-primaryDarker: #f59e08f8;
   --color-secondary: #34B6F7; /* Azul vibrante, transmite frescura y confianza */
   --color-accent: #FFC107; /* Amarillo suave, evoca energía y felicidad */ 
   --color-background: #F5F5F5; /* Gris claro, crea un fondo neutral y limpio */
   --color-text: #333333; /* Negro suave, asegura legibilidad en el texto */
-  --color-border: #CCCCCC; /* Gris claro, define los bordes y separaciones */
+  --color-border: #ddd3d3; /* Gris claro, define los bordes y separaciones */
 }
 body {
   font-family: "Rubik", sans-serif;
@@ -34,7 +34,7 @@ a {
 /* Header Part */
 
 .header-top-strip {
-  border-bottom: 1px solid var(--color-accent);
+  border-bottom: 1px solid var(--color-border);
   background-color: var(--color-primary);
   }
   .header-upper {
@@ -79,16 +79,15 @@ a {
   }
 /* Header Part End Here */
 /* Footer Part */
-
 footer {
-  background-color: var(--color-232f3e);
+  background-color: var(--color-primary);
 }
 
 footer:not(:first-child) {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 footer .input-group-text {
-  background-color: var(--color-232f3e);
+  background-color: var(--color-primary);
   color: white;
   padding: 8px 17px;
 }
