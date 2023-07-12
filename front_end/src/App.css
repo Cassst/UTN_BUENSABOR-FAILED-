@@ -4,7 +4,6 @@
   box-sizing: border-box;
 }
 :root {
-
   --color-131921: #131921;
   --color-3b4149: #3b4149;
   --color-febd69: #febd69;
@@ -17,9 +16,9 @@
 
   --color-primary: #fa661c;
   --color-primaryDarker: #f59e08f8;
-  --color-secondary: #34B6F7; /* Azul vibrante, transmite frescura y confianza */
-  --color-accent: #FFC107; /* Amarillo suave, evoca energía y felicidad */ 
-  --color-background: #F5F5F5; /* Gris claro, crea un fondo neutral y limpio */
+  --color-secondary: #34b6f7; /* Azul vibrante, transmite frescura y confianza */
+  --color-accent: #ffc107; /* Amarillo suave, evoca energía y felicidad */
+  --color-background: #f5f5f5; /* Gris claro, crea un fondo neutral y limpio */
   --color-text: #333333; /* Negro suave, asegura legibilidad en el texto */
   --color-border: #ddd3d3; /* Gris claro, define los bordes y separaciones */
 }
@@ -461,7 +460,7 @@ footer .input-group-text {
 }
 /* famous card ends */
 
-/* Our Store */
+/* Menu */
 .filter-card {
   background-color: white;
   border-radius: 10px;
@@ -561,7 +560,7 @@ footer .input-group-text {
 .gr-12 .action-bar {
   top: 17%;
 }
-/* Our store ends here */
+/* Menu ends here */
 
 /* Contact Page */
 .contact-inner-wrapper {
@@ -839,3 +838,57 @@ footer .input-group-text {
   color: var(--color-777777);
 }
 /* Shipping page ends here */
+
+/* Media Queries */
+
+/* Estilos para resoluciones de hasta 768px (dispositivos móviles) */
+@media (max-width: 768px) {
+  /* Ajustes generales para dispositivos móviles */
+  body {
+    font-size: 14px;
+  }
+
+  .container {
+    padding: 0 10px;
+  }
+
+  h1 {
+    font-size: 24px;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-size: 14px;
+    line-height: 22px;
+    margin-bottom: 8px;
+  }
+
+  /* Estilos específicos para elementos en dispositivos móviles */
+  .mobile-menu {
+    display: block;
+  }
+
+  .mobile-menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .mobile-menu li {
+    margin-bottom: 10px;
+  }
+
+  .mobile-menu a {
+    display: block;
+    padding: 10px;
+    background-color: var(--color-primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+}
+
+@media (max-width: 576px) {
+  /* Modificar estilos para dispositivos móviles más pequeños */
+  /* ... */
+}

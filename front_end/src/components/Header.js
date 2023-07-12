@@ -9,8 +9,8 @@ import menu from "../assets/images/menu.svg";
 const Header = () => {
   return (
     <>
-      <header className="header-top-strip py-3">
-        <div className="container-xxl">
+      <header className="header-top-strip py-3 mobile-menu">
+        <div className="container">
           <div className="row">
             <div className="col-6">
               <p className="text-white mb-0">
@@ -54,7 +54,7 @@ const Header = () => {
               <div className="header-upper-links d-flex align-items-center justify-content-between">
                 <div>
                   <Link
-                    to="/compare-product"
+                    to="/compare-products"
                     className="d-flex align-items-center gap-10 text-white"
                   >
                     <img src={compare} alt="compare" />
@@ -156,9 +156,9 @@ const Header = () => {
                 <div className="menu-links">
                   <div className="d-flex align-items-center gap-15">
                     <NavLink to="/" className="mx-3">Inicio</NavLink>
-                    <NavLink to="/product" className="mx-3">Menú</NavLink>
+                    <NavLink to="/store" className="mx-3">Menú</NavLink>
                     <NavLink to="/blogs" className="mx-3">Blogs</NavLink>
-                    <NavLink to="/contLinact" className="mx-3">Contacto</NavLink>
+                    <NavLink to="/contact" className="mx-3">Contacto</NavLink>
                   </div>
                 </div>
               </div>

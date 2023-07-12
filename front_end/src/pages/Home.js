@@ -4,11 +4,13 @@ import BlogCard from "../components/BlogCard";
 import ProductCard from "../components/ProductCard";
 import SpecialProduct from "../components/SpecialProduct";
 import Container from "../components/Container";
+import Meta from "../components/Meta";
 
 const Home = () => {
   return (
     <>
-      <Container class1="home-wrapper-1 py-5">
+    <Meta title="Inicio" />
+      <Container className="home-wrapper-1 py-5">
         <div className="row">
           <div className="col-6">
             <div className="main-banner">
@@ -82,7 +84,7 @@ const Home = () => {
           </div>
         </div>
       </Container>
-      <Container class1="home-wrapper-2 py-5">
+      <Container className="home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
             <div className="servies d-flex align-items-center justify-content-between">
@@ -138,7 +140,7 @@ const Home = () => {
           </div>
         </div>
       </Container>
-      <Container class1="home-wrapper-2 py-5">
+      <Container className="home-wrapper-2 py-5">
         <div className="row">
           <div className="col-12">
             <div className="categories d-flex justify-content-between flex-wrap align-items-center">
@@ -174,7 +176,7 @@ const Home = () => {
           </div>
         </div>
       </Container>
-      <Container class1="featured-wrapper py-5 home-wrapper-2">
+      <Container className="featured-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
             <h3 className="section-heading">Colección especial</h3>
@@ -185,7 +187,7 @@ const Home = () => {
           <ProductCard />
         </div>
       </Container>
-      <Container class1="famous-wrapper py-5 home-wrapper-2">
+      <Container className="famous-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-3">
             <div className="famous-card position-relative">
@@ -234,7 +236,7 @@ const Home = () => {
         </div>
       </Container>
 
-      <Container class1="special-wrapper py-5 home-wrapper-2">
+      <Container className="special-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
             <h3 className="section-heading">Productos Destacados</h3>
@@ -245,7 +247,7 @@ const Home = () => {
           <SpecialProduct />
         </div>
       </Container>
-      <Container class1="popular-wrapper py-5 home-wrapper-2">
+      <Container className="popular-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
             <h3 className="section-heading">Ofertas Especiales</h3>
