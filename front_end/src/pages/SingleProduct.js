@@ -4,33 +4,148 @@ import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import Container from "../components/Container";
 import ProductCard from "../components/ProductCard";
+import ReactImageZoom from "react-image-zoom";
 
 const SingleProduct = () => {
+  const props = {
+    width: 594,
+    height: 600,
+    zoomWidth: 600,
+    img: "/images/products/pan001.jpg",
+  };
   const [orderedProduct, setOrderedProduct] = useState(true);
+  const closeModal = () => {};
+
   return (
     <>
-      <Meta title="Product" />
+      <Meta title={"Product Name"} />
       <BreadCrumb title="Product" />
-      <div className="main-product-wrapper py-5 home-wrapper-2">
-        <div children="container-xxl">
-          <div className="row">
-            <div className="col-6"></div>
-            <div className="col-6"></div>
+      <Container class1="main-product-wrapper py-5 home-wrapper-2">
+        <div className="row">
+          <div className="col-6">
+            <div className="main-product-image">
+              <div>
+                {props.img && <ReactImageZoom {...props} />}
+                {props.img && (
+                  <div className="main-product-image">
+                    {React.Children.map(props.children, (child) => {
+                      if (child.type === "img") {
+                        return React.cloneElement(child, {
+                          style: { display: "none" },
+                        });
+                      }
+                      return child;
+                    })}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="other-product-images d-flex flex-wrap gap-15">
+              <div>
+                <img
+                  src="https://i.pinimg.com/564x/a5/0a/3f/a50a3fb25ddf19e3103420ae1b074aa5.jpg"
+                  className="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div>
+                <img
+                  src="https://i.pinimg.com/564x/a5/0a/3f/a50a3fb25ddf19e3103420ae1b074aa5.jpg"
+                  className="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div>
+                <img
+                  src="https://i.pinimg.com/564x/a5/0a/3f/a50a3fb25ddf19e3103420ae1b074aa5.jpg"
+                  className="img-fluid"
+                  alt=""
+                />
+              </div>
+              <div>
+                <img
+                  src="https://i.pinimg.com/564x/a5/0a/3f/a50a3fb25ddf19e3103420ae1b074aa5.jpg"
+                  className="img-fluid"
+                  alt=""
+                />
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="description-wrapper py-5 home-wrapper-2">
-        <div className="container-xxl">
-          <div className="row">
-            <div className="col-12">
-              <h4>Descripción</h4>
-              <div className="bg-white p-3">
-                <p>lorem impsuaslkjdajkdlasbfl</p>
+          <div className="col-6">
+            <div className="main-product-details">
+              <div className="border-bottom">
+                <h3 className="title">Special Fries</h3>
+              </div>
+              <div className="border-bottom py-3">
+                <p className="price">$ 1.600</p>
+                <div className="d-flex align-items-center gap-10">
+                  <ReactStars
+                    count={5}
+                    size={24}
+                    value={4}
+                    edit={false}
+                    activeColor="#ffd700"
+                  />
+                  <p className="mb-0 t-review">( 2 Reviews )</p>
+                </div>
+                <a className="review-btn" href="#review">
+                  Escribe tu reseña
+                </a>
+              </div>
+              <div className=" py-3">
+                <div className="d-flex gap-10 align-items-center my-2">
+                  <h3 className="product-heading">Categoría:</h3>
+                  <p className="product-data">Entradas</p>
+                </div>
+                <div className="d-flex gap-10 align-items-center my-2">
+                  <h3 className="product-heading">Libre de:</h3>
+                  <p className="product-data">Glutén</p>
+                </div>
+                <div className="d-flex gap-10 align-items-center my-2">
+                  <h3 className="product-heading">Tags :</h3>
+                  <p className="product-data">Papas</p>
+                </div>
+                <div className="d-flex gap-10 align-items-center my-2">
+                  <h3 className="product-heading">Disponibilidad :</h3>
+                  <p className="product-data">In Stock</p>
+                </div>
+                <div className="d-flex gap-10 flex-column mt-2 mb-3">
+                  <h3 className="product-heading">Tamaño :</h3>
+                  <div className="d-flex flex-wrap gap-15">
+                    <span className="badge border border-1 bg-white text-dark border-secondary">
+                      Individual
+                    </span>
+                    <span className="badge border border-1 bg-white text-dark border-secondary">
+                      Mediana
+                    </span>
+                    <span className="badge border border-1 bg-white text-dark border-secondary">
+                      Para compartir
+                    </span>
+                    <span className="badge border border-1 bg-white text-dark border-secondary">
+                      Sobredosis
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </Container>
+      <Container class1="description-wrapper py-5 home-wrapper-2">
+        <div className="row">
+          <div className="col-12">
+            <h4>Descripción</h4>
+            <div className="bg-white p-3">
+              <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Tenetur nisi similique illum aut perferendis voluptas, quisquam
+                obcaecati qui nobis officia. Voluptatibus in harum deleniti
+                labore maxime officia esse eos? Repellat?
+              </p>
+            </div>
+          </div>
+        </div>
+      </Container>
       <Container className="reviews-wrapper pb-5 home-wrapper-2">
         <div className="container-xxl">
           <div className="row">
@@ -39,7 +154,7 @@ const SingleProduct = () => {
               <div className="review-inner-wrapper">
                 <div className="review-head d-flex justify-content-between align-items-end">
                   <div>
-                  <h4 className="mb-2">Valoración</h4>
+                    <h4 className="mb-2">Valoración</h4>
                     <div className="d-flex align-items-center gap-10">
                       <ReactStars
                         count={5}

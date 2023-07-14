@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { BsSearch } from "react-icons/bs";
 import compare from "../assets/images/compare.svg";
@@ -9,17 +9,17 @@ import menu from "../assets/images/menu.svg";
 const Header = () => {
   return (
     <>
-      <header className="header-top-strip py-3 mobile-menu">
-        <div className="container">
+      <header className="header-top-strip py-3">
+        <div className="container-xxl">
           <div className="row">
             <div className="col-6">
               <p className="text-white mb-0">
-              Sabores que despiertan tus sentidos
+                Sabores que despiertan tus sentidos
               </p>
             </div>
             <div className="col-6">
               <p className="text-end text-white mb-0">
-                Contacto: 
+                Contacto:
                 <a className="text-white" href="tel: 261 333 0000">
                   261 333 0000
                 </a>
@@ -155,10 +155,18 @@ const Header = () => {
                 </div>
                 <div className="menu-links">
                   <div className="d-flex align-items-center gap-15">
-                    <NavLink to="/" className="mx-3">Inicio</NavLink>
-                    <NavLink to="/product" className="mx-3">Menú</NavLink>
-                    <NavLink to="/blogs" className="mx-3">Blogs</NavLink>
-                    <NavLink to="/contact" className="mx-3">Contacto</NavLink>
+                    <NavLink to="/" className="mx-3">
+                      Inicio
+                    </NavLink>
+                    <NavLink to="/product" className="mx-3">
+                      Menú
+                    </NavLink>
+                    <NavLink to="/blogs" className="mx-3">
+                      Blogs
+                    </NavLink>
+                    <NavLink to="/contact" className="mx-3">
+                      Contacto
+                    </NavLink>
                   </div>
                 </div>
               </div>

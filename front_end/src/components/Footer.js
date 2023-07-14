@@ -11,7 +11,9 @@ const Footer = () => {
             <div className="col-5">
               <div className="footer-top-data d-flex gap-30 align-items-center">
                 <img src={newsletter} alt="newsletter" />
-                <h2 className="mb-0 text-white mx-3">Suscribete para mejores beneficios</h2>
+                <h2 className="mb-0 text-white">
+                  Suscribete para mejores beneficios
+                </h2>
               </div>
             </div>
             <div className="col-7">
@@ -38,8 +40,8 @@ const Footer = () => {
               <h4 className="text-white mb-4">Contacta con nosotros</h4>
               <div>
                 <address className="text-white fs-6">
-                Coronel Rodríguez 273, Ciudad <br />
-                M5500
+                  Coronel Rodríguez 273, Ciudad <br />
+                  M5500
                 </address>
                 <a
                   href="tel:261 333 0000"
@@ -55,16 +57,36 @@ const Footer = () => {
                   augusto.94.castro@gmail.com
                 </a>
                 <div className="social_icons d-flex align-items-center gap-30 mt-4">
-                  <a className="text-white mx-3" href="https://www.linkedin.com/in/augusto-castro/" target="_blank" rel="noopener noreferrer">
+                  <a
+                    className="text-white mx-3"
+                    href="https://www.linkedin.com/in/augusto-castro/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <BsLinkedin className="fs-4" />
                   </a>
-                  <a className="text-white mx-3" href="https://www.instagram.com/utn.regional.mendoza/" target="_blank" rel="noopener noreferrer">
+                  <a
+                    className="text-white mx-3"
+                    href="https://www.instagram.com/utn.regional.mendoza/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <BsInstagram className="fs-4" />
                   </a>
-                  <a className="text-white mx-3" href="https://github.com/Cassst" target="_blank" rel="noopener noreferrer">
+                  <a
+                    className="text-white mx-3"
+                    href="https://github.com/Cassst"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <BsGithub className="fs-4" />
                   </a>
-                  <a className="text-white mx-3" href="https://www.youtube.com/@ColmenaTEC" target="_blank" rel="noopener noreferrer">
+                  <a
+                    className="text-white mx-3"
+                    href="https://www.youtube.com/@ColmenaTEC"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
                     <BsYoutube className="fs-4" />
                   </a>
                 </div>
@@ -74,18 +96,20 @@ const Footer = () => {
               <h4 className="text-white mb-4">Información</h4>
               <div className="footer-link d-flex flex-column">
                 <Link to="/privacy-policy" className="text-white py-2 mb-1">
-                Política de confidencialidad
+                  Política de confidencialidad
                 </Link>
                 <Link to="/refund-policy" className="text-white py-2 mb-1">
-                Política de reembolso
+                  Política de reembolso
                 </Link>
                 <Link to="/shipping-policy" className="text-white py-2 mb-1">
-                Política de envíos
+                  Política de envíos
                 </Link>
                 <Link to="/term-conditions" className="text-white py-2 mb-1">
-                Términos y condiciones
+                  Términos y condiciones
                 </Link>
-                <Link to="/blogs" className="text-white py-2 mb-1">Blogs</Link>
+                <Link to="/blogs" className="text-white py-2 mb-1">
+                  Blogs
+                </Link>
               </div>
             </div>
             <div className="col-3">
