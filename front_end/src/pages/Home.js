@@ -5,6 +5,30 @@ import ProductCard from "../components/ProductCard";
 import SpecialProduct from "../components/SpecialProduct";
 import Container from "../components/Container";
 import Meta from "../components/Meta";
+import photo001 from "../assets/images/banners/pizza001.jpg";
+import photo002 from "../assets/images/banners/burger002.jpg";
+import photo003 from "../assets/images/banners/empanada001.jpg";
+import photo004 from "../assets/images/banners/drink001.jpg";
+import photo005 from "../assets/images/banners/lomo001.jpg";
+import photo006 from "../assets/images/icons/service.png";
+import photo007 from "../assets/images/icons/service-02.png";
+import photo008 from "../assets/images/icons/service-03.png";
+import photo009 from "../assets/images/icons/service-04.png";
+import photo010 from "../assets/images/icons/service-05.png";
+import photo011 from "../assets/images/icons/pizza002.jpeg";
+import photo012 from "../assets/images/icons/empanada001.jpeg";
+import photo013 from "../assets/images/icons/burger002.jpeg";
+import photo014 from "../assets/images/icons/lomo001.jpeg";
+import photo015 from "../assets/images/products/burguer001.jpg";
+import photo016 from "../assets/images/products/pizza001.jpg";
+import photo017 from "../assets/images/products/empanadas001.jpg";
+import photo018 from "../assets/images/products/lomo001.jpg";
+import photo019 from "../assets/images/products/pizza_icon.jpg";
+import photo020 from "../assets/images/products/empanada_icon.jpg";
+import photo021 from "../assets/images/products/drink_icon.jpg";
+import photo022 from "../assets/images/products/lomo_icon.jpg";
+import photo023 from "../assets/images/products/burguer_icon.jpg";
+import photo024 from "../assets/images/products/fries_icon.jpg";
 
 const Home = () => {
   return (
@@ -15,7 +39,7 @@ const Home = () => {
           <div className="col-6">
             <div className="main-banner position-relative ">
               <img
-                src="images/banners/pizza001.jpg"
+                src={photo001}
                 className="img-fluid rounded-3"
                 alt="main banner"
               />
@@ -30,7 +54,7 @@ const Home = () => {
             <div className="d-flex flex-wrap gap-10 justify-content-between align-items-center">
               <div className="small-banner position-relative">
                 <img
-                  src="images/banners/burger002.jpg"
+                  src={photo002}
                   className="img-fluid rounded-3"
                   alt="main banner"
                 />
@@ -43,7 +67,7 @@ const Home = () => {
 
               <div className="small-banner position-relative">
                 <img
-                  src="images/banners/empanada001.jpg"
+                  src={photo003}
                   className="img-fluid rounded-3"
                   alt="main banner"
                 />
@@ -55,7 +79,7 @@ const Home = () => {
               </div>
               <div className="small-banner position-relative">
                 <img
-                  src="images/banners/drink001.jpg"
+                  src={photo004}
                   className="img-fluid rounded-3"
                   alt="main banner"
                 />
@@ -69,7 +93,7 @@ const Home = () => {
               </div>
               <div className="small-banner position-relative ">
                 <img
-                  src="images/banners/lomo001.jpg"
+                  src={photo005}
                   className="img-fluid rounded-3"
                   alt="main banner"
                 />
@@ -88,35 +112,35 @@ const Home = () => {
           <div className="col-12">
             <div className="servies d-flex align-items-center justify-content-between">
               <div className="d-flex align-items-center gap-15">
-                <img src="/images/icons/service.png" alt="services" />
+                <img src={photo006} alt="services" />
                 <div>
                   <h6>Lorem Impsu</h6>
                   <p className="mb-0">Lorem Impsu</p>
                 </div>
               </div>
               <div className="d-flex align-items-center gap-15">
-                <img src="/images/icons/service-02.png" alt="services" />
+                <img src={photo007} alt="services" />
                 <div>
                   <h6>Lorem Impsu</h6>
                   <p className="mb-0">Lorem Impsu</p>
                 </div>
               </div>
               <div className="d-flex align-items-center gap-15">
-                <img src="/images/icons/service-03.png" alt="services" />
+                <img src={photo008} alt="services" />
                 <div>
                   <h6>Lorem Impsu</h6>
                   <p className="mb-0">Lorem Impsu</p>
                 </div>
               </div>
               <div className="d-flex align-items-center gap-15">
-                <img src="/images/icons/service-04.png" alt="services" />
+                <img src={photo009} alt="services" />
                 <div>
                   <h6>Lorem Impsu</h6>
                   <p className="mb-0">Lorem Impsu</p>
                 </div>
               </div>
               <div className="d-flex align-items-center gap-15">
-                <img src="/images/icons/service-05.png" alt="services" />
+                <img src={photo010} alt="services" />
                 <div>
                   <h6>Lorem Impsu</h6>
                   <p className="mb-0">Lorem Impsu</p>
@@ -149,7 +173,7 @@ const Home = () => {
                   <p>12 Items</p>
                 </div>
                 <img
-                  src="images/icons/pizza002.jpeg"
+                  src={photo011}
                   alt="pizza"
                   style={{ borderRadius: "8px" }}
                 />
@@ -160,7 +184,7 @@ const Home = () => {
                   <p>3 Items</p>
                 </div>
                 <img
-                  src="images/icons/empanada001.jpeg"
+                  src={photo012}
                   alt="empanada"
                   style={{ borderRadius: "8px" }}
                 />
@@ -171,7 +195,7 @@ const Home = () => {
                   <p>10 Items</p>
                 </div>
                 <img
-                  src="images/icons/burger002.jpeg"
+                  src={photo013}
                   alt="hamburguesa"
                   style={{ borderRadius: "8px" }}
                 />
@@ -182,7 +206,7 @@ const Home = () => {
                   <p>8 Items</p>
                 </div>
                 <img
-                  src="images/icons/lomo001.jpeg"
+                  src={photo014}
                   alt="lomo"
                   style={{ borderRadius: "8px" }}
                 />
@@ -207,7 +231,7 @@ const Home = () => {
           <div className="col-3">
             <div className="famous-card position-relative">
               <img
-                src="images/products/burguer001.jpg"
+                src={photo015}
                 className="img-fluid"
                 alt="famous"
               />
@@ -221,7 +245,7 @@ const Home = () => {
           <div className="col-3">
             <div className="famous-card position-relative">
               <img
-                src="images/products/pizza001.jpg"
+                src={photo016}
                 className="img-fluid"
                 alt="famous"
               />
@@ -235,7 +259,7 @@ const Home = () => {
           <div className="col-3">
             <div className="famous-card position-relative">
               <img
-                src="images/products/empanadas001.jpg"
+                src={photo017}
                 className="img-fluid"
                 alt="famous"
               />
@@ -251,7 +275,7 @@ const Home = () => {
           <div className="col-3">
             <div className="famous-card position-relative">
               <img
-                src="images/products/lomo001.jpg"
+                src={photo018}
                 className="img-fluid"
                 alt="famous"
               />
@@ -296,25 +320,25 @@ const Home = () => {
             <div className="marquee-inner-wrapper card-wrapper">
               <Marquee className="d-flex">
                 <div className="mx-4 w-25">
-                  <img src="images/products/pizza_icon.jpg" alt="brand" />
+                  <img src={photo019} alt="brand" />
                 </div>
                 <div className="mx-4 w-25">
-                  <img src="images/products/empanada_icon.jpg" alt="brand" />
+                  <img src={photo020} alt="brand" />
                 </div>
                 <div className="mx-4 w-25">
-                  <img src="images/products/drink_icon.jpg" alt="brand" />
+                  <img src={photo021} alt="brand" />
                 </div>
                 <div className="mx-4 w-25">
-                  <img src="images/products/lomo_icon.jpg" alt="brand" />
+                  <img src={photo022} alt="brand" />
                 </div>
                 <div className="mx-4 w-25">
-                  <img src="images/products/drink_icon.jpg" alt="brand" />
+                  <img src={photo021} alt="brand" />
                 </div>
                 <div className="mx-4 w-25">
-                  <img src="images/products/burguer_icon.jpg" alt="brand" />
+                  <img src={photo023} alt="brand" />
                 </div>
                 <div className="mx-4 w-25">
-                  <img src="images/products/fries_icon.jpg" alt="brand" />
+                  <img src={photo024} alt="brand" />
                 </div>
               </Marquee>
             </div>

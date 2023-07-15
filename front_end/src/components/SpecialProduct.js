@@ -1,6 +1,7 @@
 import React from "react";
 import ReactStars from "react-rating-stars-component";
 import { Link } from "react-router-dom";
+import photo001 from "../assets/images/products/pan001.jpg";
 const SpecialProduct = () => {
   return (
     <>
@@ -8,7 +9,7 @@ const SpecialProduct = () => {
         <div className="special-product-card">
           <div className="d-flex justify-content-between">
             <div>
-              <img src="images/products/pan001.jpg" className="img-fluid" alt="food" />
+              <img src={photo001} className="img-fluid" alt="food" />
             </div>
             <div className="special-product-content">
               <h5 className="brand">BACON SANDWICH</h5>

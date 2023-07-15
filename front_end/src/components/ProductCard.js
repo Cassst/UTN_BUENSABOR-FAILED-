@@ -3,7 +3,7 @@ import ReactStars from "react-rating-stars-component";
 import { Link, useLocation } from "react-router-dom";
 import prodcompare from "../assets/images/prodcompare.svg";
 import wish from "../assets/images/wish.svg";
-import photo from "../assets/images/products/pizza001.jpg";
+import photo from "../assets/images/products/pizza.png";
 import photo2 from "../assets/images/products/pizza002.jpg";
 import addcart from "../assets/images/add-cart.svg";
 import view from "../assets/images/view.svg";

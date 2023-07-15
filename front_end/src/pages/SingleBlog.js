@@ -4,7 +4,7 @@ import BreadCrumb from "../components/BreadCrumb";
 import Container from "../components/Container";
 import { Link } from "react-router-dom";
 import { HiOutlineArrowLeft } from "react-icons/hi";
-
+import photo001 from "../assets/images/blog/blog00.jpg";
 const SingleBlog = () => {
   return (
     <>
@@ -17,7 +17,7 @@ const SingleBlog = () => {
               <div className="single-blog-card">
                 <h3 className="title">Las mejores técnicas para amasar masa</h3>
                 <img
-                  src="/images/blog/blog00.jpg"
+                  src={photo001}
                   className="img-fluid w-100 my-4"
                   alt="blog"
                 />
