@@ -15,7 +15,7 @@ const SingleProduct = () => {
     zoomWidth: 600,
     img: "https://i.pinimg.com/564x/a5/0a/3f/a50a3fb25ddf19e3103420ae1b074aa5.jpg",
   };
-  const [orderedProduct, setOrderedProduct] = useState(true);
+  const [orderedProduct] = useState(true);
   const copyToClipboard = async (text) => {
     console.log("Text copied to clipboard: ", text);
     var textField = document.createElement("textarea");
@@ -25,7 +25,6 @@ const SingleProduct = () => {
     await navigator.clipboard.writeText(text);
     textField.remove();
   };
-  const closeModal = () => {};
 
   return (
     <>

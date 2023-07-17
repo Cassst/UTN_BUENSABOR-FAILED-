@@ -3,7 +3,10 @@ import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import ProductCard from "../components/ProductCard";
 import Container from "../components/Container";
-
+import icon01 from "../assets/images/icons/gr.svg";
+import icon02 from "../assets/images/icons/gr2.svg";
+import icon03 from "../assets/images/icons/gr3.svg";
+import icon04  from "../assets/images/icons/gr4.svg";
 const Menu = () => {
   const [grid, setGrid] = useState(4);
   return (
@@ -137,7 +140,7 @@ const Menu = () => {
                       onClick={() => {
                         setGrid(3);
                       }}
-                      src="images/gr4.svg"
+                      src={icon04}
                       className="d-block img-fluid"
                       alt="grid"
                     />
@@ -145,7 +148,7 @@ const Menu = () => {
                       onClick={() => {
                         setGrid(4);
                       }}
-                      src="images/gr3.svg"
+                      src={icon03}
                       className="d-block img-fluid"
                       alt="grid"
                     />
@@ -153,7 +156,7 @@ const Menu = () => {
                       onClick={() => {
                         setGrid(6);
                       }}
-                      src="images/gr2.svg"
+                      src={icon02}
                       className="d-block img-fluid"
                       alt="grid"
                     />
@@ -161,7 +164,7 @@ const Menu = () => {
                       onClick={() => {
                         setGrid(12);
                       }}
-                      src="images/gr.svg"
+                      src={icon01}
                       className="d-block img-fluid"
                       alt="grid"
                     />
