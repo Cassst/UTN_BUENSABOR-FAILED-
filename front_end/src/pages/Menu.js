@@ -10,7 +10,7 @@ const Menu = () => {
     <>
       <Meta title="Menu" />
       <BreadCrumb title="Menu" />
-      <Container class1="store-wrapper home-wrapper-2 py-5">
+      <Container className="store-wrapper home-wrapper-2 py-5">
         <div className="row">
           <div className="col-3">
             <div className="filter-card mb-3">

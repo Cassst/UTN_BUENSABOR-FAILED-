@@ -2,7 +2,8 @@ import React from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import Container from "../components/Container";
-
+import photo001 from "../assets/images/products/pan001.jpg";
+import cross from "../assets/images/cross.svg";
 const Wishlist = () => {
   return (
     <>
@@ -13,13 +14,13 @@ const Wishlist = () => {
           <div className="col-3">
             <div className="wishlist-card w-100 position-relative">
               <img
-                src="images/cross.svg"
+                src={cross}
                 alt="cross"
                 className="position-absolute cross img-fluid"
               />
               <div className="wishlist-card-image">
                 <img
-                  src="images/products/pan001.jpg"
+                  src={photo001}
                   className="img-fluid w-100"
                   alt="Comida001"
                 />

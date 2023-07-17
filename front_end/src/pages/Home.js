@@ -34,7 +34,7 @@ const Home = () => {
   return (
     <>
       <Meta title="Inicio" />
-      <Container class1="home-wrapper-1 py-5">
+      <Container className="home-wrapper-1 py-5">
         <div className="row">
           <div className="col-6">
             <div className="main-banner position-relative ">
@@ -114,51 +114,38 @@ const Home = () => {
               <div className="d-flex align-items-center gap-15">
                 <img src={photo006} alt="services" />
                 <div>
-                  <h6>Lorem Impsu</h6>
-                  <p className="mb-0">Lorem Impsu</p>
+                  <h6>Delivery Gratis</h6>
+                  <p className="mb-0">en pedidos superior a $3.000</p>
                 </div>
               </div>
               <div className="d-flex align-items-center gap-15">
                 <img src={photo007} alt="services" />
                 <div>
-                  <h6>Lorem Impsu</h6>
-                  <p className="mb-0">Lorem Impsu</p>
+                  <h6>Ofertas Especiales</h6>
+                  <p className="mb-0">de hasta un 35%</p>
                 </div>
               </div>
               <div className="d-flex align-items-center gap-15">
                 <img src={photo008} alt="services" />
                 <div>
-                  <h6>Lorem Impsu</h6>
-                  <p className="mb-0">Lorem Impsu</p>
+                  <h6>Compras Seguras</h6>
+                  <p className="mb-0">contas con soporte 24/7</p>
                 </div>
               </div>
               <div className="d-flex align-items-center gap-15">
                 <img src={photo009} alt="services" />
                 <div>
-                  <h6>Lorem Impsu</h6>
-                  <p className="mb-0">Lorem Impsu</p>
+                  <h6>Los mejores Precios</h6>
+                  <p className="mb-0">para tu bolsillo"</p>
                 </div>
               </div>
               <div className="d-flex align-items-center gap-15">
                 <img src={photo010} alt="services" />
                 <div>
-                  <h6>Lorem Impsu</h6>
-                  <p className="mb-0">Lorem Impsu</p>
+                  <h6>Pagos Seguros</h6>
+                  <p className="mb-0">metodo 100% protegido</p>
                 </div>
               </div>
-              {/*
-              {services?.map((i, j) => {
-                return (
-                  <div className="d-flex align-items-center gap-15" key={j}>
-                    <img src={i.image} alt="services" />
-                    <div>
-                      <h6>{i.title}</h6>
-                      <p className="mb-0">{i.tagline}</p>
-                    </div>
-                  </div>
-                );
-              })}
-            */}
             </div>
           </div>
         </div>

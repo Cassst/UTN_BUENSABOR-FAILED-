@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { BsLinkedin, BsGithub, BsYoutube, BsInstagram } from "react-icons/bs";
 import newsletter from "../assets/images/newsletter.png";
 const Footer = () => {
+  const handleLinkClick = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   return (
     <>
       <footer className="py-4">
@@ -44,11 +47,11 @@ const Footer = () => {
                   M5500
                 </address>
                 <a
-                  href="tel:261 333 0000"
+                  href="tel:261 333 00008"
                   className="mt-3 d-block mb-1 text-white"
                   style={{ pointerEvents: "none" }}
                 >
-                  261 333 0000
+                  261 333 00008
                 </a>
                 <a
                   href="mailto:augusto.94.castro@gmail.com"
@@ -95,38 +98,68 @@ const Footer = () => {
             <div className="col-3">
               <h4 className="text-white mb-4">Información</h4>
               <div className="footer-link d-flex flex-column">
-                <Link to="/privacy-policy" className="text-white py-2 mb-1">
+                <Link to="/privacy-policy" className="text-white py-2 mb-1" onClick={handleLinkClick}>
                   Política de confidencialidad
                 </Link>
-                <Link to="/refund-policy" className="text-white py-2 mb-1">
+                <Link to="/refund-policy" className="text-white py-2 mb-1" onClick={handleLinkClick}>
                   Política de reembolso
                 </Link>
-                <Link to="/shipping-policy" className="text-white py-2 mb-1">
+                <Link to="/shipping-policy" className="text-white py-2 mb-1" onClick={handleLinkClick}>
                   Política de envíos
                 </Link>
-                <Link to="/term-conditions" className="text-white py-2 mb-1">
+                <Link to="/term-conditions" className="text-white py-2 mb-1" onClick={handleLinkClick}>
                   Términos y condiciones
-                </Link>
-                <Link to="/blogs" className="text-white py-2 mb-1">
-                  Blogs
                 </Link>
               </div>
             </div>
             <div className="col-3">
               <h4 className="text-white mb-4">Cuenta</h4>
               <div className="footer-link d-flex flex-column">
-                <Link className="text-white py-2 mb-1">Sobre nosotros</Link>
-                <Link className="text-white py-2 mb-1">Faq</Link>
-                <Link className="text-white py-2 mb-1">Contacto</Link>
+                <Link
+                  className="text-white py-2 mb-1"
+                  onClick={handleLinkClick}
+                >
+                  Sobre nosotros
+                </Link>
+                <Link
+                  className="text-white py-2 mb-1"
+                  onClick={handleLinkClick}
+                >
+                  Faq
+                </Link>
+                <Link
+                  to="/contact"
+                  className="text-white py-2 mb-1"
+                  onClick={handleLinkClick}
+                >
+                  Contacto
+                </Link>
               </div>
             </div>
             <div className="col-2">
               <h4 className="text-white mb-4">Enlaces rápidos</h4>
               <div className="footer-link d-flex flex-column">
-                <Link className="text-white py-2 mb-1">Pizzas</Link>
-                <Link className="text-white py-2 mb-1">Empanadas</Link>
-                <Link className="text-white py-2 mb-1">Lomos</Link>
-                <Link className="text-white py-2 mb-1">Bebidas</Link>
+                <Link
+                  to="/"
+                  className="text-white py-2 mb-1"
+                  onClick={handleLinkClick}
+                >
+                  Inicio
+                </Link>
+                <Link
+                  to="/product"
+                  className="text-white py-2 mb-1"
+                  onClick={handleLinkClick}
+                >
+                  Menú
+                </Link>
+                <Link
+                  to="/blogs"
+                  className="text-white py-2 mb-1"
+                  onClick={handleLinkClick}
+                >
+                  Blog
+                </Link>
               </div>
             </div>
           </div>

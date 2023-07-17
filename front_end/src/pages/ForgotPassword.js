@@ -3,13 +3,14 @@ import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import { Link } from "react-router-dom";
 import Container from "../components/Container";
+import CustomInput from "../components/CustomInput";
 
 const ForgotPassword = () => {
   return (
     <>
       <Meta title="Recuperar Contraseña" />
       <BreadCrumb title="Recuperar Contraseña" />
-      <Container class1="login-wrapper py-5 home-wrapper-2">
+      <Container className="login-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
             <div className="auth-card">

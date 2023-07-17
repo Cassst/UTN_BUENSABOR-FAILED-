@@ -9,7 +9,7 @@ const Contact = () => {
     <>
       <Meta title="Contacto" />
       <BreadCrumb title="Contacto" />
-      <Container class1="contact-wrapper py-5 home-wrapper-2">
+      <Container className="contact-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-12">
             <iframe

@@ -2,24 +2,25 @@ import React from "react";
 import Meta from "../components/Meta";
 import BreadCrumb from "../components/BreadCrumb";
 import Container from "../components/Container";
-
+import photo001 from "../assets/images/products/pan001.jpg";
+import cross from "../assets/images/cross.svg";
 const CompareProducts = () => {
   return (
     <>
       <Meta title={"Comparación de Productos"} />
       <BreadCrumb title="Comparar" />
-      <Container class1="compare-product-wrapper py-5 home-wrapper-2">
+      <Container className="compare-product-wrapper py-5 home-wrapper-2">
         <div className="row">
           <div className="col-3">
             <div className="compare-product-card position-relative">
               <img
-                src="images/cross.svg"
+                src={cross}
                 alt="cross"
                 className="position-absolute cross img-fluid"
               />
               <div className="product-card-image">
                 <img
-                  src="images/products/pan001.jpg"
+                  src={photo001}
                   className="img-fluid"
                   alt="Comida001"
                 />
