@@ -21,6 +21,10 @@ const columns = [
     sorter: (a, b) => a.category.length - b.category.length,
   },
   {
+    title: "Breve Descrpción",
+    dataIndex: "shortDescription",
+  },
+  {
     title: "Precio",
     dataIndex: "price",
     sorter: (a, b) => a.price - b.price,
@@ -36,32 +40,36 @@ const Productlist = () => {
   useEffect(() => {
     dispatch(getProducts());
   }, []);
-  const productState = useSelector((state) => state.product.products);
+
+  const productState = useSelector((state) => state.product.products.product);
   const data1 = [];
-  for (let i = 0; i < productState.length; i++) {
-    data1.push({
-      key: i + 1,
-      title: productState[i].title,
-      category: productState[i].category,
-      price: `${productState[i].price}`,
-      action: (
-        <>
-          <Link to="/" className=" fs-3 text-danger">
-            <BiEdit />
-          </Link>
-          <Link className="ms-3 fs-3 text-danger" to="/">
-            <AiFillDelete />
-          </Link>
-        </>
-      ),
-    });
+
+  if (productState) {
+    for (let i = 0; i < productState.length; i++) {
+      data1.push({
+        key: i + 1,
+        title: productState[i].productName,
+        category: productState[i].category,
+        shortDescription: productState[i].shortDescription,
+        price: `${productState[i].price}`,
+        action: (
+          <>
+            <Link to="/" className=" fs-3 text-danger">
+              <BiEdit />
+            </Link>
+            <Link className="ms-3 fs-3 text-danger" to="/">
+              <AiFillDelete />
+            </Link>
+          </>
+        ),
+      });
+    }
   }
-  console.log(data1);
   return (
     <div>
       <h3 className="mb-4 title">Productos</h3>
       <div>
-        <Table columns={columns} dataSource={data1} />
+        {productState && <Table columns={columns} dataSource={data1} />}
       </div>
     </div>
   );

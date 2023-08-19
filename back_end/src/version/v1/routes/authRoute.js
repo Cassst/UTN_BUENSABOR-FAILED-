@@ -40,7 +40,7 @@ router
   .post("/cart/cash_order",authMiddleware, createOrder)
   .get("/wishlist",authMiddleware, getWishList)
   .get("/cart",authMiddleware, getUserCart)
-  .get("/",getAllUsers)
+  .get("/all-users",getAllUsers)
   .get("/get_orders",authMiddleware, getOrders)
   .get("/get_all_orders", authMiddleware, isAdmin, getAllOrders)
   .get("/get_order_by_user/:id", authMiddleware, isAdmin, getOrderByUserId)
