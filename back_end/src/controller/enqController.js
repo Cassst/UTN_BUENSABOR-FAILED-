@@ -3,7 +3,9 @@ const Enquiry = require("../models/noSQL/enqModel");
 const createEnquiry = async (req, res) => {
   try {
     const newEnquiry = await Enquiry.create(req.body);
-    res.json(newEnquiry);
+    return res
+        .status(201)
+        .send({ status: "Success", success: true, message: "Created Enquiry" });
   } catch (error) {
     return res.status(500).send({
       status: "Fail",
@@ -27,7 +29,11 @@ const updateEnquiry = async (req, res) => {
         message: "Enquiry not found",
       });
     }
-    res.json(updatedEnquiry);
+    return res.status(200).send({
+      status: "Success",
+      success: true,
+      message: "Enquiry Updated",
+    });
   } catch (error) {
     return res.status(500).send({
       status: "Fail",
@@ -49,7 +55,11 @@ const deleteEnquiry = async (req, res) => {
         message: "Enquiry not found",
       });
     }
-    res.json(deletedEnquiry);
+    return res.status(200).send({
+      status: "Success",
+      success: true,
+      message: "Enquiry Removed",
+    });
   } catch (error) {
     return res.status(500).send({
       status: "Fail",
@@ -71,7 +81,12 @@ const getEnquiry = async (req, res) => {
         message: "Enquiry not found",
       });
     }
-    res.json(getaEnquiry);
+    return res.status(200).send({
+      status: "Success",
+      success: true,
+      message: "Enquiry Details",
+      getaEnquiry,
+    });
   } catch (error) {
     return res.status(500).send({
       status: "Fail",
@@ -85,7 +100,12 @@ const getEnquiry = async (req, res) => {
 const getallEnquiry = async (req, res) => {
   try {
     const getallEnquiry = await Enquiry.find();
-    res.json(getallEnquiry);
+    res.status(200).send({
+      status: "Success",
+      success: true,
+      message: "All Enquiry",
+      getallEnquiry,
+    });
   } catch (error) {
     return res.status(500).send({
       status: "Fail",

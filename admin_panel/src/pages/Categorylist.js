@@ -44,30 +44,34 @@ const Categorylist = () => {
     dispatch(resetState());
     dispatch(getCategories());
   }, []);
-  const pCatStat = useSelector((state) => state.pCategory.pCategories);
+  const pCatStat = useSelector((state) => state.pCategory.pCategories.category);
   const data1 = [];
-  for (let i = 0; i < pCatStat.length; i++) {
-    data1.push({
-      key: i + 1,
-      name: pCatStat[i].title,
-      action: (
-        <>
-          <Link
-            to={`/admin/category/${pCatStat[i]._id}`}
-            className=" fs-3 text-danger"
-          >
-            <BiEdit />
-          </Link>
-          <button
-            className="ms-3 fs-3 text-danger bg-transparent border-0"
-            onClick={() => showModal(pCatStat[i]._id)}
-          >
-            <AiFillDelete />
-          </button>
-        </>
-      ),
-    });
+
+  if (pCatStat) {
+    for (let i = 0; i < pCatStat.length; i++) {
+      data1.push({
+        key: i + 1,
+        name: pCatStat[i].title,
+        action: (
+          <>
+            <Link
+              to={`/admin/category/${pCatStat[i]._id}`}
+              className=" fs-3 text-danger"
+            >
+              <BiEdit />
+            </Link>
+            <button
+              className="ms-3 fs-3 text-danger bg-transparent border-0"
+              onClick={() => showModal(pCatStat[i]._id)}
+            >
+              <AiFillDelete />
+            </button>
+          </>
+        ),
+      });
+    }
   }
+
   const deleteCategory = (e) => {
     dispatch(deleteAProductCategory(e));
     setOpen(false);
@@ -77,9 +81,9 @@ const Categorylist = () => {
   };
   return (
     <div>
-      <h3 className="mb-4 title">Lista de Categorías</h3>
+      <h3 className="mb-4 title">Categorías - Productos</h3>
       <div>
-        <Table columns={columns} dataSource={data1} />
+        {pCatStat && <Table columns={columns} dataSource={data1} />}
       </div>
       <CustomModal
         hideModal={hideModal}

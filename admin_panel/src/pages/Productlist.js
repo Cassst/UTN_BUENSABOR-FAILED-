@@ -51,13 +51,13 @@ const Productlist = () => {
         title: productState[i].productName,
         category: productState[i].category,
         shortDescription: productState[i].shortDescription,
-        price: `${productState[i].price}`,
+        price: `$ ${productState[i].price}`,
         action: (
           <>
             <Link to="/" className=" fs-3 text-danger">
               <BiEdit />
             </Link>
-            <Link className="ms-3 fs-3 text-danger" to="/">
+            <Link  to="/" className="ms-3 fs-3 text-danger">
               <AiFillDelete />
             </Link>
           </>

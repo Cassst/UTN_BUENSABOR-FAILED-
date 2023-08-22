@@ -44,31 +44,36 @@ const Blogcatlist = () => {
     dispatch(resetState());
     dispatch(getCategories());
   }, []);
-  const bCatState = useSelector((state) => state.bCategory.bCategories);
-  console.log(bCatState);
+  const bCatState = useSelector(
+    (state) => state.bCategory.bCategories.category
+  );
   const data1 = [];
-  for (let i = 0; i < bCatState.length; i++) {
-    data1.push({
-      key: i + 1,
-      name: bCatState[i].title,
-      action: (
-        <>
-          <Link
-            to={`/admin/blog-category/${bCatState[i]._id}`}
-            className=" fs-3 text-danger"
-          >
-            <BiEdit />
-          </Link>
-          <button
-            className="ms-3 fs-3 text-danger bg-transparent border-0"
-            onClick={() => showModal(bCatState[i]._id)}
-          >
-            <AiFillDelete />
-          </button>
-        </>
-      ),
-    });
+
+  if (bCatState) {
+    for (let i = 0; i < bCatState.length; i++) {
+      data1.push({
+        key: i + 1,
+        name: bCatState[i].title,
+        action: (
+          <>
+            <Link
+              to={`/admin/blog-category/${bCatState[i]._id}`}
+              className=" fs-3 text-danger"
+            >
+              <BiEdit />
+            </Link>
+            <button
+              className="ms-3 fs-3 text-danger bg-transparent border-0"
+              onClick={() => showModal(bCatState[i]._id)}
+            >
+              <AiFillDelete />
+            </button>
+          </>
+        ),
+      });
+    }
   }
+
   const deleteBlogCategory = (e) => {
     dispatch(deleteABlogCat(e));
     setOpen(false);
@@ -80,7 +85,7 @@ const Blogcatlist = () => {
     <div>
       <h3 className="mb-4 title">Categorías - Blog</h3>
       <div>
-        <Table columns={columns} dataSource={data1} />
+        {bCatState && <Table columns={columns} dataSource={data1} />}
       </div>
       <CustomModal
         hideModal={hideModal}
@@ -88,7 +93,7 @@ const Blogcatlist = () => {
         performAction={() => {
           deleteBlogCategory(blogCatId);
         }}
-        title="Are you sure you want to delete this blog category?"
+        title="¿Seguro que desea eliminar esta categoría de blog?"
       />
     </div>
   );
