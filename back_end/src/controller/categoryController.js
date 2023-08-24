@@ -26,7 +26,7 @@ const updateCategory = async (req, res) => {
     return res.status(200).send({
       status: "Success",
       success: true,
-      message: "Product Updated",
+      message: "Category Updated",
     });
   } catch (error) {
     return res.status(500).send({
@@ -46,7 +46,7 @@ const deleteCategory = async (req, res) => {
     return res.status(200).send({
       status: "Success",
       success: true,
-      message: "Product Removed",
+      message: "Category Removed",
     });
   } catch (error) {
     return res.status(500).send({

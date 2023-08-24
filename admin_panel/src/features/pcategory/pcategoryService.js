@@ -21,7 +21,6 @@ const getProductCategory = async (id) => {
 
 const deleteProductCategory = async (id) => {
   const response = await axios.delete(`${base_url}category/${id}`, config);
-
   return response.data;
 };
 const updateProductCategory = async (category) => {

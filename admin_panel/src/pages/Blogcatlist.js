@@ -30,10 +30,12 @@ const columns = [
 
 const Blogcatlist = () => {
   const [open, setOpen] = useState(false);
-  const [blogCatId, setblogCatId] = useState("");
-  const showModal = (e) => {
+  const [blogCatId, setBlogCatId] = useState("");
+  const [blogCategoryName, setBlogCategoryName] = useState("");
+  const showModal = (id, name) => {
     setOpen(true);
-    setblogCatId(e);
+    setBlogCatId(id);
+    setBlogCategoryName(name);
   };
 
   const hideModal = () => {
@@ -64,7 +66,7 @@ const Blogcatlist = () => {
             </Link>
             <button
               className="ms-3 fs-3 text-danger bg-transparent border-0"
-              onClick={() => showModal(bCatState[i]._id)}
+              onClick={() => showModal(bCatState[i]._id, bCatState[i].title)}
             >
               <AiFillDelete />
             </button>
@@ -74,26 +76,23 @@ const Blogcatlist = () => {
     }
   }
 
-  const deleteBlogCategory = (e) => {
-    dispatch(deleteABlogCat(e));
+  const deleteBlogCategory = async (categoryId) => {
+    await dispatch(deleteABlogCat(categoryId));
     setOpen(false);
-    setTimeout(() => {
-      dispatch(getCategories());
-    }, 100);
+    dispatch(getCategories());
   };
+
   return (
     <div>
       <h3 className="mb-4 title">Categorías - Blog</h3>
-      <div>
-        {bCatState && <Table columns={columns} dataSource={data1} />}
-      </div>
+      <div>{bCatState && <Table columns={columns} dataSource={data1} />}</div>
       <CustomModal
         hideModal={hideModal}
         open={open}
         performAction={() => {
           deleteBlogCategory(blogCatId);
         }}
-        title="¿Seguro que desea eliminar esta categoría de blog?"
+        title={`¿Estás seguro de que quieres eliminar la categoría: ${blogCategoryName}?`}
       />
     </div>
   );

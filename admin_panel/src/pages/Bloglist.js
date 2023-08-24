@@ -30,10 +30,12 @@ const columns = [
 
 const Bloglist = () => {
   const [open, setOpen] = useState(false);
-  const [blogId, setblogId] = useState("");
-  const showModal = (e) => {
+  const [blogId, setBlogId] = useState("");
+  const [blogName, setBlogName] = useState("");
+  const showModal = (id, name) => {
     setOpen(true);
-    setblogId(e);
+    setBlogId(id);
+    setBlogName(name);
   };
 
   const hideModal = () => {
@@ -64,7 +66,7 @@ const Bloglist = () => {
             </Link>
             <button
               className="ms-3 fs-3 text-danger bg-transparent border-0"
-              onClick={() => showModal(getBlogState[i]._id)}
+              onClick={() => showModal(getBlogState[i]._id, getBlogState[i].title)}
             >
               <AiFillDelete />
             </button>
@@ -74,19 +76,17 @@ const Bloglist = () => {
     }
   }
 
-  const deleteBlog = (e) => {
-    dispatch(deleteABlog(e));
-
+  const deleteBlog = async (blogId) => {
+    await dispatch(deleteABlog(blogId));
     setOpen(false);
-    setTimeout(() => {
-      dispatch(getBlogs());
-    }, 100);
+    dispatch(getBlogs());
   };
+  
   return (
     <div>
       <h3 className="mb-4 title">Lista de Blogs</h3>
       <div>
-        {getBlogState &&<Table columns={columns} dataSource={data1} />}
+        {getBlogState && <Table columns={columns} dataSource={data1} />}
       </div>
       <CustomModal
         hideModal={hideModal}
@@ -94,7 +94,7 @@ const Bloglist = () => {
         performAction={() => {
           deleteBlog(blogId);
         }}
-        title="¿Estás seguro de que quieres eliminar este blog?"
+        title={`¿Estás seguro de que quieres eliminar la categoría: ${blogName}?`}
       />
     </div>
   );

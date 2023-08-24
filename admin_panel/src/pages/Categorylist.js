@@ -31,9 +31,11 @@ const columns = [
 const Categorylist = () => {
   const [open, setOpen] = useState(false);
   const [pCatId, setpCatId] = useState("");
-  const showModal = (e) => {
+  const [categoryName, setCategoryName] = useState("");
+  const showModal = (id, name) => {
     setOpen(true);
-    setpCatId(e);
+    setpCatId(id);
+    setCategoryName(name);
   };
 
   const hideModal = () => {
@@ -44,6 +46,7 @@ const Categorylist = () => {
     dispatch(resetState());
     dispatch(getCategories());
   }, []);
+
   const pCatStat = useSelector((state) => state.pCategory.pCategories.category);
   const data1 = [];
 
@@ -62,7 +65,7 @@ const Categorylist = () => {
             </Link>
             <button
               className="ms-3 fs-3 text-danger bg-transparent border-0"
-              onClick={() => showModal(pCatStat[i]._id)}
+              onClick={() => showModal(pCatStat[i]._id, pCatStat[i].title)}
             >
               <AiFillDelete />
             </button>
@@ -72,26 +75,22 @@ const Categorylist = () => {
     }
   }
 
-  const deleteCategory = (e) => {
-    dispatch(deleteAProductCategory(e));
+  const deleteCategory = async (categoryId) => {
+    await dispatch(deleteAProductCategory(categoryId));
     setOpen(false);
-    setTimeout(() => {
-      dispatch(getCategories());
-    }, 100);
+    dispatch(getCategories());
   };
   return (
     <div>
       <h3 className="mb-4 title">Categorías - Productos</h3>
-      <div>
-        {pCatStat && <Table columns={columns} dataSource={data1} />}
-      </div>
+      <div>{pCatStat && <Table columns={columns} dataSource={data1} />}</div>
       <CustomModal
         hideModal={hideModal}
         open={open}
         performAction={() => {
           deleteCategory(pCatId);
         }}
-        title="¿Está seguro de que desea eliminar esta categoría de producto?"
+        title={`¿Está seguro de que desea eliminar la categoría: ${categoryName}?`}
       />
     </div>
   );

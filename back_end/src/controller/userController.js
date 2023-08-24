@@ -661,7 +661,12 @@ const getOrders = async (req, res) => {
       .populate("products.product")
       .populate("orderby")
       .exec();
-    res.json(userOrders);
+      res.status(200).send({
+        status: "Success",
+        success: true,
+        message: "Access Granted",
+        userOrders,
+      });
   } catch (error) {
     return res.status(500).json({
       status: "Fail",
@@ -678,7 +683,12 @@ const getAllOrders = async (req, res) => {
       .populate("products.product")
       .populate("orderby")
       .exec();
-    res.json(alluserorders);
+    res.status(200).send({
+      status: "Success",
+      success: true,
+      message: "Access Granted",
+      alluserorders,
+    });
   } catch (error) {
     return res.status(500).json({
       status: "Fail",
@@ -696,7 +706,13 @@ const getOrderByUserId = async (req, res) => {
       .populate("products.product")
       .populate("orderby")
       .exec();
-    res.json(userorders);
+      res.status(200).send({
+        status: "Success",
+        success: true,
+        message: "Access Granted",
+        userorders,
+      });
+    
   } catch (error) {
     return res.status(500).json({
       status: "Fail",
@@ -721,7 +737,13 @@ const updateOrderStatus = async (req, res) => {
       },
       { new: true }
     );
-    res.json(updateOrderStatus);
+    res.status(200).send({
+      status: "Success",
+      success: true,
+      message: "Updated order status",
+      updateOrderStatus,
+    });
+    
   } catch (error) {
     return res.status(500).json({
       status: "Fail",
